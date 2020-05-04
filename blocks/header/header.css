@@ -6,3 +6,11 @@
   padding-top: 45px;
   padding-bottom: 76.85px;
 }
+@media screen and (max-width:950px) {
+  .header {
+    max-width: calc(100%*260/320);
+    padding-top: 28px;
+    padding-bottom: 73.76px;
+    
+  }
+}

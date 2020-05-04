@@ -13,3 +13,16 @@
   grid-gap: 21px 18px;
  
 }
+@media screen and (max-width:950px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: calc(100%*282/320);
+  }
+}
+@media screen and (max-width:500px) {
+  .card-grid {
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 20px;
+    padding-bottom: 48px;
+  }
+}

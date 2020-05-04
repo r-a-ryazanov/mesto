@@ -8,3 +8,9 @@ line-height: 56px;
 border: solid red 1px;
 
 }
+@media screen and (max-width:950px) {
+  .profile__name {
+    font-size: 27px;
+    text-align: center;
+  }
+}
