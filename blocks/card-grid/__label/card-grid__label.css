@@ -1,0 +1,9 @@
+.card-grid__label{
+  max-width: 246px;
+  margin: auto;
+  border: red solid 1px;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 25px;
+  padding-bottom: 31px;
+}

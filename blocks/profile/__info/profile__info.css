@@ -1,4 +1,5 @@
 .profile__info{
+  margin: 0;
  display: grid;
  grid-template-columns: 295px 24px;
  grid-gap: 16px 17px;
