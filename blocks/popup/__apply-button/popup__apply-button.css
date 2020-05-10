@@ -1,20 +1,19 @@
-.popup__apply-button{
-  
+.popup__apply-button {
   margin: auto;
   width: calc(100%*358/430);
   margin-bottom: 36.51px;
   background: #000000;
-border-radius: 2px;
-font-size: 18px;
-line-height: 22px;
-color: #FFFFFF;
-outline: none;
-border: none;
-padding-top: 13.66px;
-padding-bottom: 18.49px;
-transition: opacity 1s linear 0s;
-
+  border-radius: 2px;
+  font-size: 18px;
+  line-height: 22px;
+  color: #FFFFFF;
+  outline: none;
+  border: none;
+  padding-top: 13.66px;
+  padding-bottom: 18.49px;
+  transition: opacity 1s linear 0s;
 }
-.popup__apply-button:hover{
+
+.popup__apply-button:hover {
   opacity: 0.8;
 }

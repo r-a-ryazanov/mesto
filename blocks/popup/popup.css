@@ -5,13 +5,12 @@
 @import url("./__input/_type/popup__input_type_name.css");
 @import url("./__input/_type/popup__input_type_vocation.css");
 @import url("./__apply-button/popup__apply-button.css");
-.popup{
+.popup {
   position: fixed;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  border: red solid 1px;
   background-color: rgba(0, 0, 0, 0.5);
   display: none;
   justify-content: center;

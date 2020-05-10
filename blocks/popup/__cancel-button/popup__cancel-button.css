@@ -1,4 +1,4 @@
-.popup__cancel-button{
+.popup__cancel-button {
   position: absolute;
   background-color: rgba(0, 0, 0, 0);
   border: 0;
@@ -9,8 +9,9 @@
   background-image: url(../../../images/CloseIcon.svg);
   background-size: 100%;
   transition: opacity 1s linear 0s;
-
+  color: rgba(0, 0, 0, 0);
 }
-.popup__cancel-button:hover{
+
+.popup__cancel-button:hover {
   opacity: 0.6;
 }

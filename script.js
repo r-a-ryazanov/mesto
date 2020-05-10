@@ -20,6 +20,7 @@ function formSubmitHandler(evt) {
   evt.preventDefault();
   profileName.textContent = popupInputName.value;
   profileVocation.textContent = popupInputVocation.value;
+  popup.classList.remove('popup_opened');
 }
 function resizeFuction() {
 

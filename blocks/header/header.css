@@ -1,21 +1,21 @@
 @import url(./__logo/header__logo.css);
-.header{
+.header {
   max-width: 1200px;
-  border: red solid 1px;
   margin: auto;
   padding-top: 45px;
   padding-bottom: 76.85px;
 }
+
 @media screen and (max-width:1741px) {
   .header {
     max-width: calc(100%*882/1280);
   }
 }
+
 @media screen and (max-width:500px) {
   .header {
     max-width: calc(100%*268/320);
     padding-top: 28px;
-    padding-bottom: 73.76px;
-    
+    padding-bottom: 69.85px;
   }
 }
