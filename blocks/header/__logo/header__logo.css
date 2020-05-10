@@ -1,6 +1,11 @@
 .header__logo{
   width: 142.07px;
   height: 33.4px;
+  
+  transition: opacity 1s linear 0s;
+}
+.header__logo:hover{
+  opacity: 0;
 }
 @media screen and (max-width:500px) {
   .header__logo {
