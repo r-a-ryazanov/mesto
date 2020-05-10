@@ -11,6 +11,7 @@
   display: flex;
   justify-content: start;
   align-items: center;
+  padding-top: 36.25px;
 }
 
 @media screen and (max-width:1741px) {
@@ -24,5 +25,6 @@
     max-width: calc(100%*282/320);
     flex-direction: column;
     padding-bottom: 36px;
+    padding-top: 38.25px;
   }
 }
