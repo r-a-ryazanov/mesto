@@ -2,8 +2,6 @@
 @import url("./__cancel-button/popup__cancel-button.css");
 @import url("./__title/popup__title.css");
 @import url("./__input/popup__input.css");
-@import url("./__input/_type/popup__input_type_name.css");
-@import url("./__input/_type/popup__input_type_vocation.css");
 @import url("./__apply-button/popup__apply-button.css");
 .popup {
   position: fixed;
