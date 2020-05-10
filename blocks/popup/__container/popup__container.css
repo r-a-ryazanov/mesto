@@ -7,8 +7,8 @@
   flex-direction: column;
 }
 
-@media screen and (max-width:614px) {
+@media screen and (max-width:500px) {
   .popup__container {
-    width: calc(100%*350/500);
+    width: calc(100%*430/500);
   }
 }

@@ -5,7 +5,7 @@
   width: 57.55px;
   height: 57.55px;
   left: calc(100%*418/430);
-  top: calc(330px - 319.44px - 57.55px);
+  top: -47px;
   background-image: url(../../../images/CloseIcon.svg);
   background-size: 100%;
   transition: opacity 1s linear 0s;
@@ -14,4 +14,11 @@
 
 .popup__cancel-button:hover {
   opacity: 0.6;
+}
+
+@media screen and (max-width:614px) {
+  .popup__cancel-button {
+    left: calc(100% - 47px);
+    top: -57px;
+  }
 }
