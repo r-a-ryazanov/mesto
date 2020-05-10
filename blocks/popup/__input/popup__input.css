@@ -2,8 +2,8 @@
   border: none;
   border-bottom: 1px solid rgba(0,0,0,0.2);
   outline: none;
-  margin-left: 36px;
-  margin-right: 36px;
+  margin: auto;
+  width: calc(100%*358/430);
   padding-bottom: 13.26px;
   font-size: 14px;
 line-height: 17px;

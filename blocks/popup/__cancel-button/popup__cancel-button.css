@@ -4,7 +4,7 @@
   border: 0;
   width: 57.55px;
   height: 57.55px;
-  left: 418px;
+  left: calc(100%*418/430);
   top: calc(330px - 319.44px - 57.55px);
   background-image: url(../../../images/CloseIcon.svg);
   background-size: 100%;

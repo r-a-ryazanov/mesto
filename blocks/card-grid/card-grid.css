@@ -4,7 +4,7 @@
 @import url("./__like/card-grid__like.css");
 @import url("./__place/card-grid__place.css");
 .card-grid{
-  max-width: calc(100%*882/1280);
+  max-width: 1200px;
   border: red solid 1px;
   margin: auto;
   padding-bottom: 66px;
@@ -12,6 +12,11 @@
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 21px 18px;
  
+}
+@media screen and (max-width:1741px) {
+  .card-grid {
+    max-width: calc(100%*882/1280);
+  }
 }
 @media screen and (max-width:950px) {
   .card-grid {

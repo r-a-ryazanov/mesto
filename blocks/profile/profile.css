@@ -6,7 +6,7 @@
 @import url("./__vocation/profile__vocatiom.css");
 @import url("./__edit-icon/profile__edit-icon.css");
 .profile{
-  max-width: calc(100%*882/1280);
+  max-width: 1200px;
   border: red solid 1px;
   margin: auto;  
   padding-bottom: 47.25px;
@@ -14,6 +14,11 @@
   justify-content: start;
   align-items: center;
 
+}
+@media screen and (max-width:1741px) {
+  .profile {
+    max-width: calc(100%*882/1280);
+  }
 }
 @media screen and (max-width:950px) {
   .profile {

@@ -1,5 +1,8 @@
 .popup__apply-button{
-  margin: 0 36px 36.51px 36px;
+  
+  margin: auto;
+  width: calc(100%*358/430);
+  margin-bottom: 36.51px;
   background: #000000;
 border-radius: 2px;
 font-size: 18px;
