@@ -1,4 +1,4 @@
 .card-grid__image {
   width: 100%;
-  height: auto;
+  height: calc(100vw*282/1280);
 }

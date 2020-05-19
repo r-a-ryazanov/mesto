@@ -1,5 +1,5 @@
 .card-grid__label {
-  max-width: calc(100%*240/282);
+  max-width: calc(100%*246/282);
   margin: auto;
   display: flex;
   justify-content: space-between;
