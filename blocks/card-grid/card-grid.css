@@ -5,7 +5,6 @@
 @import url("./__place/card-grid__place.css");
 @import url("./__delete-button/card-grid__delete-button.css");
 .card-grid {
-  position: relative;
   max-width: 1200px;
   margin: auto;
   padding-bottom: 66px;

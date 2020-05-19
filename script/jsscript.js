@@ -10,7 +10,6 @@ const popupContainer = popup.querySelector(".popup__container");
 const cardGrid = page.querySelector(".card-grid");
 const cardTemplate = document.querySelector("#card").content;
 const profileAddButton = page.querySelector(".profile__add-button");
-
 const initialCards = [
   {
       name: 'Архыз',
@@ -41,10 +40,14 @@ function addCard(name, link){ //Функция добавления карточ
   const cardElement = cardTemplate.cloneNode(true);
   cardElement.querySelector(".card-grid__place").textContent = name;
   cardElement.querySelector(".card-grid__image").src = link;
-  cardElement.querySelector(".card-grid__image").height = cardElement.querySelector(".card-grid__image").width;
+  cardElement.querySelector(".card-grid__image").height = cardElement.querySelector(".card-grid__image").width;  
+  const cardGridDeleteButton = cardElement.querySelector(".card-grid__delete-button");
+  cardGridDeleteButton.addEventListener('click', function () {
+    cardGridDeleteButton.closest(".card-grid__item").remove();
+  });//прерывание на нажатие кнопки удаления карточки
   cardGrid.append(cardElement);
 }
-initialCards.forEach(function (item) {
+initialCards.forEach(function (item) {//Добавление карточек из массива
   addCard(item.name, item.link);
 });
 function openClosePopup() { //функция открытия/закрытия формы изменения данных
@@ -64,4 +67,5 @@ function formSubmitHandler(evt) { //функция созхранения дан
 }
 profileEditButton.addEventListener('click', openClosePopup);  //прерывание на нажатие кнопки изменения данных
 popupCancelButton.addEventListener('click', openClosePopup); //прерывание на нажатие кнопки закрытия формы изменения данных
-popupContainer.addEventListener('submit', formSubmitHandler);
+popupContainer.addEventListener('submit', formSubmitHandler);//Прерывание на нажатие кнопки сохранить
+
