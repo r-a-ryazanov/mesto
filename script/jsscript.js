@@ -39,12 +39,16 @@ const initialCards = [
 function addCard(name, link){ //Функция добавления карточки
   const cardElement = cardTemplate.cloneNode(true);
   cardElement.querySelector(".card-grid__place").textContent = name;
-  cardElement.querySelector(".card-grid__image").src = link;
-  cardElement.querySelector(".card-grid__image").height = cardElement.querySelector(".card-grid__image").width;  
+  cardElement.querySelector(".card-grid__image").src = link; 
   const cardGridDeleteButton = cardElement.querySelector(".card-grid__delete-button");
   cardGridDeleteButton.addEventListener('click', function () {
     cardGridDeleteButton.closest(".card-grid__item").remove();
   });//прерывание на нажатие кнопки удаления карточки
+  
+  const cardGridLikeButton = cardElement.querySelector(".card-grid__like");
+  cardGridLikeButton.addEventListener('click',function(){
+    cardGridLikeButton.classList.toggle('card-grid__like_active');
+  });
   cardGrid.append(cardElement);
 }
 initialCards.forEach(function (item) {//Добавление карточек из массива

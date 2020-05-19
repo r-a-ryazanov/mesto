@@ -6,6 +6,7 @@
   background-image: url(../../../images/heart.svg);
   background-size: 100%;
   transition: opacity 1s linear 0s;
+  outline: none;
 }
 
 .card-grid__like:hover {
