@@ -1,0 +1,17 @@
+.add-popup__cancel-button {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0);
+  border: 0;
+  width: 57.55px;
+  height: 57.55px;
+  left: calc(100%*418/430);
+  top: -47px;
+  background-image: url(../../../images/CloseIcon.svg);
+  background-size: 100%;
+  transition: opacity 1s linear 0s;
+}
+
+.add-popup__cancel-button:hover {
+  opacity: 0.6;
+}
+
