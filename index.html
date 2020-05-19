@@ -137,6 +137,24 @@
         <button type="submit" class="popup__apply-button">Сохранить</button>
       </form>
     </div>
+    <!--Всплывающее окно добавления карточки-->
+    <div class="add-popup">
+      <!--Форма добавления карточки-->
+      <form name="edit-form" method="GET" action="#" class="add-popup__container">
+        <!--Заголовок -->
+        <p class="add-popup__title">Новое место</p>
+        <!--Область ввода названия места-->
+        <input type="text" name="input-name" required placeholder="Название"
+          class="add-popup__input popup__input_type_name">
+        <!--Область ввода рода деятельности путешественника-->
+        <input type="text" name="input-vocation" required placeholder="Ссылка на картинку"
+          class="add-popup__input popup__input_type_vocation">
+        <!--Кнопка закрытия формы изменения данных-->
+        <button type="button" aria-label="Закрыть" class="add-popup__cancel-button"> </button>
+        <!--Кнопка сохранения данных и закрытия формы изменения данных-->
+        <button type="submit" class="add-popup__apply-button">Сохранить</button>
+      </form>
+    </div>
   </div>
   <script src="./script/popup.js"></script>
 </body>
