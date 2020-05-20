@@ -6,8 +6,7 @@
 @import url("../blocks/profile/profile.css");
 @import url("../blocks/card-grid/card-grid.css");
 @import url("../blocks/popup/popup.css");
-@import url("../blocks/popup/_opened/popup_opened.css");
 @import url("../blocks/image-popup/image-popup.css");
-@import url("../blocks/image-popup/_opened/image-popup_opened.css");
 @import url("../blocks/add-popup/add-popup.css");
-@import url("../blocks/add-popup/_opened/add-popup_opened.css");
+@import url("../blocks/popup/_opened/popup_opened.css");
+@import url("../blocks/popup/_visible/popup_visible.css");
