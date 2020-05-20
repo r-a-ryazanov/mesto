@@ -11,6 +11,11 @@ const cardGrid = page.querySelector(".card-grid");
 const cardTemplate = document.querySelector("#card").content;
 const profileAddButton = page.querySelector(".profile__add-button");
 const imagePopup = page.querySelector(".image-popup");
+const addPopup = page.querySelector(".add-popup");
+const addPopupContainer = addPopup.querySelector(".add-popup__container");
+const addPopupInputName = addPopup.querySelector(".add-popup__input_type_name");
+const addPopupInputLink = addPopup.querySelector(".add-popup__input_type_link");
+const addPopupCancelButton = addPopup.querySelector(".add-popup__cancel-button");
 const initialCards = [
   {
     name: 'Архыз',
@@ -81,14 +86,26 @@ function openClosePopup() { //функция открытия/закрытия �
     popup.classList.add('popup_opened');
   }
 }
-
+function openCloseAddPopup(){//функция открытия/закрытия формы добавления карточки
+  
+  addPopupInputName.value = null;
+  addPopupInputLink.value = null;
+  addPopup.classList.toggle('add-popup_opened');
+}
+function formAddHandler(evt) { //функция добавления карты и закрытия формы 
+  evt.preventDefault();
+  addCard(addPopupInputName.value, addPopupInputLink.value);
+  openCloseAddPopup();
+}
 function formSubmitHandler(evt) { //функция созхранения данных и закрытия формы изменения данных
   evt.preventDefault();
   profileName.textContent = popupInputName.value;
   profileVocation.textContent = popupInputVocation.value;
   openClosePopup();
 }
-
+profileAddButton.addEventListener('click', openCloseAddPopup);//Прерывание на нажатие кнопки добавить
+addPopupCancelButton.addEventListener('click', openCloseAddPopup);//Прерывание на нажатие кнопки закрыть
+addPopupContainer.addEventListener('submit', formAddHandler);//Прерывание на нажатие кнопки сохранить
 profileEditButton.addEventListener('click', openClosePopup);  //прерывание на нажатие кнопки изменения данных
 popupCancelButton.addEventListener('click', openClosePopup); //прерывание на нажатие кнопки закрытия формы изменения данных
 popupContainer.addEventListener('submit', formSubmitHandler);//Прерывание на нажатие кнопки сохранить

@@ -64,13 +64,36 @@
         <button type="submit" class="popup__apply-button">Сохранить</button>
       </form>
     </div>
+    <!--Всплывающее окно-->
     <div class="image-popup">
+      <!--Контейнер с фото-->
       <div class="image-popup__container">
+        <!--Фото-->
         <img src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg" alt="Фото" class="image-popup__image">
+        <!--Название места-->
         <p class="image-popup__name">sdfhjlk</p>
+        <!--Кнопка закрыть-->
         <button type="button" aria-label="Закрыть" class="image-popup__cancel-button"> </button>
       </div>
       
+    </div>
+    <!--Всплывающее окно-->
+    <div class="add-popup">
+      <!--Форма добавления карточки-->
+      <form name="edit-form" method="GET" action="#" class="add-popup__container">
+        <!--Заголовок формы-->
+        <p class="popup__title">Новое место</p>
+        <!--Область ввода названия места-->
+        <input type="text" name="input-name" required placeholder="Название"
+          class="add-popup__input add-popup__input_type_name">
+        <!--Область ввода ссылки на фото-->
+        <input type="text" name="input-vocation" required placeholder="Ссылка на картинку"
+          class="add-popup__input add-popup__input_type_link">
+        <!--Кнопка закрытия всплывающего окна-->
+        <button type="button" aria-label="Закрыть" class="add-popup__cancel-button"> </button>
+        <!--Кнопка добавления карточки и закрытия окна-->
+        <button type="submit" class="add-popup__apply-button">Создать</button>
+      </form>
     </div>
   </div>
   

@@ -1,4 +1,4 @@
-.popup__apply-button {
+.add-popup__apply-button {
   margin: auto;
   width: calc(100%*358/430);
   margin-bottom: 36.51px;
@@ -15,6 +15,15 @@
   transition: background-color 1s linear 0s;
 }
 
-.popup__apply-button:hover {
+.add-popup__apply-button:hover {
   background-color: rgba(0, 0, 0, 0.8);
+}
+@media screen and (max-width:500px) {
+  .add-popup__apply-button {
+    width: calc(100%*200/240);
+    font-size: 14px;
+    line-height: 17px;
+    margin-bottom: 30px;
+  margin-top: 16px;
+  }
 }

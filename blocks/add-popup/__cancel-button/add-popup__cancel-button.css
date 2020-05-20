@@ -1,0 +1,31 @@
+.add-popup__cancel-button {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0);
+  border: 0;
+  width: 57px;
+  height: 57px;
+  left: calc(100%*418/430);
+  top: -47px;
+  background-image: url(../../../images/CloseIcon.svg);
+  background-size: 100%;
+  transition: opacity 1s linear 0s;
+  outline: none;
+}
+
+.add-popup__cancel-button:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width:500px) {
+  .add-popup__cancel-button {
+    width: 42px;
+    height: 42px;
+  top: -32px;
+  }
+}
+@media screen and (max-width:319px) {
+  .add-popup__cancel-button {
+    left: calc(100% - 30px);
+    top: -40px;
+  }
+}
