@@ -70,7 +70,7 @@ function addCard(name, link) { //Функция добавления карто�
   cardGridLikeButton.addEventListener('click', function () {//прерывание на нажатие кнопки лайк
     cardGridLikeButton.classList.toggle('card-grid__like_active');
   });
-  cardGrid.append(cardElement);
+  cardGrid.prepend(cardElement);
 }
 
 initialCards.forEach(function (item) {//Добавление карточек из массива
