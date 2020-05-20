@@ -3,16 +3,19 @@
   height: 383px;
   object-fit: cover;
 }
+
 @media screen and (max-width:1741px) {
   .card-grid__image {
     height: calc(100vw*282/1280);
   }
 }
+
 @media screen and (max-width:950px) {
   .card-grid__image {
     height: calc(100vw*123/320);
   }
 }
+
 @media screen and (max-width:500px) {
   .card-grid__image {
     height: calc(100vw*282/320);

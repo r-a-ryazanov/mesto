@@ -9,11 +9,12 @@
   line-height: 17px;
   margin-bottom: 29.74px;
 }
+
 @media screen and (max-width:500px) {
   .add-popup__input {
     width: calc(100%*200/240);
     font-size: 12px;
-line-height: 15px;
+    line-height: 15px;
     margin-bottom: 20px;
   }
 }

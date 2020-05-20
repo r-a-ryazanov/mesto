@@ -12,6 +12,7 @@
     width: calc(100%*882/1280);
   }
 }
+
 @media screen and (max-width:950px) {
   .header {
     width: 100%;

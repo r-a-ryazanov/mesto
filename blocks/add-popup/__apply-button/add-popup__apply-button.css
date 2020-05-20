@@ -18,12 +18,13 @@
 .add-popup__apply-button:hover {
   background-color: rgba(0, 0, 0, 0.8);
 }
+
 @media screen and (max-width:500px) {
   .add-popup__apply-button {
     width: calc(100%*200/240);
     font-size: 14px;
     line-height: 17px;
     margin-bottom: 30px;
-  margin-top: 16px;
+    margin-top: 16px;
   }
 }
