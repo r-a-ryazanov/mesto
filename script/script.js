@@ -43,66 +43,35 @@ const initialCards = [
   }
 ];
 
-function removeVisiblePopup() {// функция удаления 'popup_visible' из popup
-  popup.classList.remove('popup_visible')
-}
 
-function removeVisibleImagePopup() {// функция удаления 'popup_visible' из imagePopup
-  imagePopup.classList.remove('popup_visible')
-}
-
-function removeVisibleAddPopup() {// функция удаления 'popup_visible' из addPopup
-  addPopup.classList.remove('popup_visible')
-}
-
-function openCloseImagePopup() {//функция открытия/закрытия формы добавления карточки
-
-  if (imagePopup.classList.contains('popup_opened')) {
-    imagePopup.classList.remove('popup_opened');
-    setTimeout(removeVisibleImagePopup, 500);
-  } else {
-
-    imagePopup.classList.add('popup_opened');
-    imagePopup.classList.add('popup_visible');
+function openClosePopup(input) { //функция открытия/закрытия popup
+  
+  if(input === popup){
+    if (input.classList.contains('popup_opened')) {
+      input.classList.remove('popup_opened');
+    } else {
+      popupInputName.value = profileName.textContent;
+      popupInputVocation.value = profileVocation.textContent;
+      input.classList.add('popup_opened');
+    }
+  } else{
+    input.classList.toggle('popup_opened');
   }
-}
-
-function openClosePopup() { //функция открытия/закрытия формы изменения данных
-  if (popup.classList.contains('popup_opened')) {
-    popup.classList.remove('popup_opened');
-    setTimeout(removeVisiblePopup, 500);
-  } else {
-    popupInputName.value = profileName.textContent;
-    popupInputVocation.value = profileVocation.textContent;
-    popup.classList.add('popup_opened');
-    popup.classList.add('popup_visible');
-  }
-}
-
-function openCloseAddPopup() {//функция открытия/закрытия формы добавления карточки
-
-  addPopupInputName.value = null;
-  addPopupInputLink.value = null;
-  if (addPopup.classList.contains('popup_opened')) {
-    addPopup.classList.remove('popup_opened');
-    setTimeout(removeVisibleAddPopup, 500);
-  } else {
-
-    addPopup.classList.add('popup_opened');
-    addPopup.classList.add('popup_visible');
-  }
+  
 }
 
 function addCard(name, link) { //Функция добавления карточки
   const cardElement = cardTemplate.cloneNode(true);
-  cardElement.querySelector(".card-grid__place").textContent = name;
+  const cardGridPlace = cardElement.querySelector(".card-grid__place");
+  cardGridPlace.textContent = name;
   const cardGridImage = cardElement.querySelector(".card-grid__image");
   cardGridImage.src = link;
+  cardGridImage.setAttribute('alt', name);
   cardGridImage.addEventListener('click', function () {//Прерывание на нажатие картинки
     const card = cardGridImage.closest(".card-grid__item");
-    imagePopup.querySelector(".image-popup__image").src = card.querySelector(".card-grid__image").src;
-    imagePopup.querySelector(".image-popup__name").textContent = card.querySelector(".card-grid__place").textContent;
-    openCloseImagePopup();
+    imagePopup.querySelector(".image-popup__image").src = cardGridImage.src;
+    imagePopup.querySelector(".image-popup__name").textContent = cardGridPlace.textContent;
+    openClosePopup(imagePopup);
   });
   const cardGridDeleteButton = cardElement.querySelector(".card-grid__delete-button");
   cardGridDeleteButton.addEventListener('click', function () {//прерывание на нажатие кнопки удаления карточки
@@ -123,21 +92,31 @@ initialCards.forEach(function (item) {//Добавление карточек и
 function formAddHandler(evt) { //функция добавления карты и закрытия формы 
   evt.preventDefault();
   addCard(addPopupInputName.value, addPopupInputLink.value);
-  openCloseAddPopup();
+  openClosePopup(addPopup);
 }
 
 function formSubmitHandler(evt) { //функция созхранения данных и закрытия формы изменения данных
   evt.preventDefault();
   profileName.textContent = popupInputName.value;
   profileVocation.textContent = popupInputVocation.value;
-  openClosePopup();
+  openClosePopup(popup);
 }
 
-imagePopup.querySelector(".image-popup__cancel-button").addEventListener('click', openCloseImagePopup); //прерывание при нажатии кнопки закрытия popup с картинкой
-profileAddButton.addEventListener('click', openCloseAddPopup);//Прерывание на нажатие кнопки добавить
-addPopupCancelButton.addEventListener('click', openCloseAddPopup);//Прерывание на нажатие кнопки закрыть
+imagePopup.querySelector(".image-popup__cancel-button").addEventListener('click', function(){
+  openClosePopup(imagePopup);
+}); //прерывание при нажатии кнопки закрытия popup с картинкой
+profileAddButton.addEventListener('click', function(){
+  openClosePopup(addPopup);
+}); //Прерывание на нажатие кнопки добавить
+addPopupCancelButton.addEventListener('click', function(){
+  openClosePopup(addPopup);
+});//Прерывание на нажатие кнопки закрыть*/
 addPopupContainer.addEventListener('submit', formAddHandler);//Прерывание на нажатие кнопки сохранить
-profileEditButton.addEventListener('click', openClosePopup);  //прерывание на нажатие кнопки изменения данных
-popupCancelButton.addEventListener('click', openClosePopup); //прерывание на нажатие кнопки закрытия формы изменения данных
+profileEditButton.addEventListener('click', function(){
+  openClosePopup(popup);
+});  //прерывание на нажатие кнопки изменения данных
+popupCancelButton.addEventListener('click', function(){
+  openClosePopup(popup);
+}); //прерывание на нажатие кнопки закрытия формы изменения данных
 popupContainer.addEventListener('submit', formSubmitHandler);//Прерывание на нажатие кнопки сохранить
 
