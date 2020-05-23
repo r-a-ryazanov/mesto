@@ -68,7 +68,6 @@ function addCard(name, link) { //Функция добавления карто�
   cardGridImage.src = link;
   cardGridImage.setAttribute('alt', name);
   cardGridImage.addEventListener('click', function () {//Прерывание на нажатие картинки
-    const card = cardGridImage.closest(".card-grid__item");
     imagePopup.querySelector(".image-popup__image").src = cardGridImage.src;
     imagePopup.querySelector(".image-popup__name").textContent = cardGridPlace.textContent;
     openClosePopup(imagePopup);
