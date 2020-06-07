@@ -45,19 +45,27 @@ const initialCards = [
 
 
 function openClosePopup(input) { //функция открытия/закрытия popup
-  
-  if(input === popup){
+
+  if (input === popup) {
     if (input.classList.contains('popup_opened')) {
       input.classList.remove('popup_opened');
+      removeEventListener('keydown', eventKeyHandler);
     } else {
       popupInputName.value = profileName.textContent;
       popupInputVocation.value = profileVocation.textContent;
       input.classList.add('popup_opened');
+      addEventListener('keydown', eventKeyHandler);
     }
-  } else{
-    input.classList.toggle('popup_opened');
+  } else {
+    if (input.classList.contains('popup_opened')) {
+      input.classList.remove('popup_opened');
+      removeEventListener('keydown', eventKeyHandler);
+    } else {
+      input.classList.add('popup_opened');
+      addEventListener('keydown', eventKeyHandler);
+    }
   }
-  
+
 }
 
 function addCard(name, link) { //Функция добавления карточки
@@ -100,22 +108,44 @@ function formSubmitHandler(evt) { //функция созхранения дан
   profileVocation.textContent = popupInputVocation.value;
   openClosePopup(popup);
 }
+const eventKeyHandler = (evt) => {
+  if (evt.key === 'Escape') {
+    if (popup.classList.contains('popup_opened')) {
+      openClosePopup(popup);
+    } else {
+      if (addPopup.classList.contains('popup_opened')) {
+        openClosePopup(addPopup);
+      } else {
+        if (imagePopup.classList.contains('popup_opened')) openClosePopup(imagePopup);
+      }
+    }
+  }
+};
 
-imagePopup.querySelector(".image-popup__cancel-button").addEventListener('click', function(){
+imagePopup.querySelector(".image-popup__cancel-button").addEventListener('click', function () {
   openClosePopup(imagePopup);
 }); //прерывание при нажатии кнопки закрытия popup с картинкой
-profileAddButton.addEventListener('click', function(){
+imagePopup.addEventListener('click', function (evt) {
+  if (evt.target.classList.contains('image-popup')) openClosePopup(imagePopup);
+});//прерывание при клике на оверлей popup с картинкой
+profileAddButton.addEventListener('click', function () {
   openClosePopup(addPopup);
 }); //Прерывание на нажатие кнопки добавить
-addPopupCancelButton.addEventListener('click', function(){
+addPopupCancelButton.addEventListener('click', function () {
   openClosePopup(addPopup);
 });//Прерывание на нажатие кнопки закрыть*/
+addPopup.addEventListener('click', function (evt) {
+  if (evt.target.classList.contains('add-popup')) openClosePopup(addPopup);
+});//прерывание при клике на оверлей popup добавления карточки
 addPopupContainer.addEventListener('submit', formAddHandler);//Прерывание на нажатие кнопки сохранить
-profileEditButton.addEventListener('click', function(){
+profileEditButton.addEventListener('click', function () {
   openClosePopup(popup);
 });  //прерывание на нажатие кнопки изменения данных
-popupCancelButton.addEventListener('click', function(){
+popupCancelButton.addEventListener('click', function () {
   openClosePopup(popup);
 }); //прерывание на нажатие кнопки закрытия формы изменения данных
+popup.addEventListener('click', function (evt) {
+  if (evt.target.classList.contains('popup')) openClosePopup(popup);
+});//прерывание при клике на оверлей popup 
 popupContainer.addEventListener('submit', formSubmitHandler);//Прерывание на нажатие кнопки сохранить
 
