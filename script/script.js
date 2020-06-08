@@ -54,18 +54,46 @@ function openClosePopup(input) { //функция открытия/закрыт�
       popupInputName.value = profileName.textContent;
       popupInputVocation.value = profileVocation.textContent;
       input.classList.add('popup_opened');
+      enableValidation({
+        formSelector: '.popup__container',
+        inputSelector: '.popup__input',
+        submitButtonSelector: '.popup__apply-button',
+        inactiveButtonClass: 'popup__apply-button_disabled',
+        inputErrorClass: 'popup__input_type_error',
+        errorClass: 'popup__error_visible'
+      });
       addEventListener('keydown', eventKeyHandler);
     }
   } else {
-    if (input.classList.contains('popup_opened')) {
-      input.classList.remove('popup_opened');
-      removeEventListener('keydown', eventKeyHandler);
-    } else {
-      input.classList.add('popup_opened');
-      addEventListener('keydown', eventKeyHandler);
+    if (input === imagePopup) {
+      if (input.classList.contains('popup_opened')) {
+        input.classList.remove('popup_opened');
+        removeEventListener('keydown', eventKeyHandler);
+      } else {
+        input.classList.add('popup_opened');
+
+        addEventListener('keydown', eventKeyHandler);
+      }
+    }  else {
+    if (input === addPopup) {
+      if (input.classList.contains('popup_opened')) {
+        input.classList.remove('popup_opened');
+        removeEventListener('keydown', eventKeyHandler);
+      } else {
+        input.classList.add('popup_opened');
+        enableValidation({
+          formSelector: '.add-popup__container',
+          inputSelector: '.add-popup__input',
+          submitButtonSelector: '.add-popup__apply-button',
+          inactiveButtonClass: 'popup__apply-button_disabled',
+          inputErrorClass: 'popup__input_type_error',
+          errorClass: 'popup__error_visible'
+        });
+        addEventListener('keydown', eventKeyHandler);
+      }
     }
   }
-
+}
 }
 
 function addCard(name, link) { //Функция добавления карточки
@@ -147,5 +175,4 @@ popupCancelButton.addEventListener('click', function () {
 popup.addEventListener('click', function (evt) {
   if (evt.target.classList.contains('popup')) openClosePopup(popup);
 });//прерывание при клике на оверлей popup 
-popupContainer.addEventListener('submit', formSubmitHandler);//Прерывание на нажатие кнопки сохранить
-
+popupContainer.addEventListener('submit', formSubmitHandler);//Прерывание на нажатие кнопки сохранит

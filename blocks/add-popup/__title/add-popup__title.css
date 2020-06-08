@@ -1,6 +1,7 @@
 .add-popup__title {
   padding: 0;
   margin: auto;
+  margin-bottom: 24px;
   width: calc(100%*358/430);
   margin-top: 34px;
   margin-bottom: 54px;

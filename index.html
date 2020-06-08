@@ -49,15 +49,17 @@
     <!--Всплывающее окно-->
     <div class="popup">
       <!--Форма изменения данных-->
-      <form name="edit-form" method="GET" action="#" class="popup__container">
+      <form name="edit-form" method="GET" action="#" class="popup__container" novalidate>
         <!--Заголовок формы изменения данных-->
         <p class="popup__title">Редактировать профиль</p>
         <!--Область ввода имени путешественника-->
-        <input type="text" name="input-name" required placeholder="Имя путешественника"
-          class="popup__input popup__input_type_name">
+        <input type="text" id = "name-input" required placeholder="Имя путешественника"
+          class="popup__input popup__input_type_name" pattern="[A-Za-zА-Яа-яЁё\s-]+" minlength = "2" maxlength="40" value="Жак-Ив Кусто">
+          <span class = "popup__error" id = "name-input-error"></span>
         <!--Область ввода рода деятельности путешественника-->
-        <input type="text" name="input-vocation" required placeholder="Род деятельности путешественника"
-          class="popup__input popup__input_type_vocation">
+        <input type="text" id = "vocation-input" required placeholder="Род деятельности путешественника"
+          class="popup__input popup__input_type_vocation" pattern="[A-Za-zА-Яа-яЁё\s-]+" minlength = "2" maxlength="200" value="Исследователь океана">
+          <span class = "popup__error" id = "vocation-input-error"></span>
         <!--Кнопка закрытия формы изменения данных-->
         <button type="button" aria-label="Закрыть" class="popup__cancel-button"> </button>
         <!--Кнопка сохранения данных и закрытия формы изменения данных-->
@@ -72,7 +74,7 @@
         <img src="#" alt="Фото"
           class="image-popup__image">
         <!--Название места-->
-        <p class="image-popup__name">sdfhjlk</p>
+        <p class="image-popup__name">Название</p>
         <!--Кнопка закрыть-->
         <button type="button" aria-label="Закрыть" class="image-popup__cancel-button"> </button>
       </div>
@@ -81,15 +83,17 @@
     <!--Всплывающее окно-->
     <div class="add-popup">
       <!--Форма добавления карточки-->
-      <form name="edit-form" method="GET" action="#" class="add-popup__container">
+      <form name="edit-form" method="GET" action="#" class="add-popup__container" novalidate>
         <!--Заголовок формы-->
         <p class="popup__title">Новое место</p>
         <!--Область ввода названия места-->
-        <input type="text" name="input-name" required placeholder="Название"
-          class="add-popup__input add-popup__input_type_name">
+        <input type="text" id="title-input" required placeholder="Название"
+          class="add-popup__input add-popup__input_type_name" minlength = "1" maxlength="30" >
+          <span class = "popup__error" id = "title-input-error"></span>
         <!--Область ввода ссылки на фото-->
-        <input type="text" name="input-vocation" required placeholder="Ссылка на картинку"
-          class="add-popup__input add-popup__input_type_link">
+        <input type="url" id="link-input" required placeholder="Ссылка на картинку"
+          class="add-popup__input add-popup__input_type_link" >
+          <span class = "popup__error" id = "link-input-error"></span>
         <!--Кнопка закрытия всплывающего окна-->
         <button type="button" aria-label="Закрыть" class="add-popup__cancel-button"> </button>
         <!--Кнопка добавления карточки и закрытия окна-->
@@ -115,6 +119,7 @@
     </div>
   </template>
   <script src="./script/script.js"></script>
+  <script src="./script/validate.js"></script>
 </body>
 
 </html>

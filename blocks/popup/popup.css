@@ -3,6 +3,7 @@
 @import url("./__title/popup__title.css");
 @import url("./__input/popup__input.css");
 @import url("./__apply-button/popup__apply-button.css");
+@import url("./__error/popup__error.css");
 .popup {
   position: fixed;
   left: 0;
