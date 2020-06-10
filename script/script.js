@@ -11,6 +11,8 @@ const cardGrid = page.querySelector(".card-grid");
 const cardTemplate = document.querySelector("#card").content;
 const profileAddButton = page.querySelector(".profile__add-button");
 const imagePopup = page.querySelector(".image-popup");
+const imagePopupImage = imagePopup.querySelector(".image-popup__image");
+const imagePopupName = imagePopup.querySelector(".image-popup__name");
 const addPopup = page.querySelector(".add-popup");
 const addPopupContainer = addPopup.querySelector(".popup__container");
 const addPopupInputName = addPopup.querySelector("#title-input");
@@ -53,7 +55,12 @@ function closePopup(input) {
   removeEventListener('keydown', eventKeyHandler);
   input.removeEventListener('click', overlayClickHandler);
 }
-
+function imageClickHandler(name, link) {
+  imagePopupImage.src = link;
+  imagePopupName.textContent = name;
+  imagePopupImage.setAttribute('alt', `Фото '${name}'`);
+  openPopup(imagePopup);
+}
 
 function addCard(name, link) { //Функция добавления карточки
   const cardElement = cardTemplate.cloneNode(true);
@@ -61,12 +68,8 @@ function addCard(name, link) { //Функция добавления карто�
   cardGridPlace.textContent = name;
   const cardGridImage = cardElement.querySelector(".card-grid__image");
   cardGridImage.src = link;
-  cardGridImage.setAttribute('alt', name);
-  cardGridImage.addEventListener('click', function () {//Прерывание на нажатие картинки
-    imagePopup.querySelector(".image-popup__image").src = cardGridImage.src;
-    imagePopup.querySelector(".image-popup__name").textContent = cardGridPlace.textContent;
-    openPopup(imagePopup);
-  });
+  cardGridImage.setAttribute('alt', `Фото '${name}'`);
+  cardGridImage.addEventListener('click', () => imageClickHandler(name, link));// прерывание при нажатии на картинку
   const cardGridDeleteButton = cardElement.querySelector(".card-grid__delete-button");
   cardGridDeleteButton.addEventListener('click', function () {//прерывание на нажатие кнопки удаления карточки
     cardGridDeleteButton.closest(".card-grid__item").remove();
@@ -76,16 +79,18 @@ function addCard(name, link) { //Функция добавления карто�
   cardGridLikeButton.addEventListener('click', function () {//прерывание на нажатие кнопки лайк
     cardGridLikeButton.classList.toggle('card-grid__like_active');
   });
-  cardGrid.prepend(cardElement);
+  return cardElement;
 }
 
 initialCards.forEach(function (item) {//Добавление карточек из массива
-  addCard(item.name, item.link);
+
+  cardGrid.prepend(addCard(item.name, item.link));
 });
 
 function formAddHandler(evt) { //функция добавления карты и закрытия формы 
   evt.preventDefault();
-  addCard(addPopupInputName.value, addPopupInputLink.value);
+
+  cardGrid.prepend(addCard(addPopupInputName.value, addPopupInputLink.value));
   closePopup(addPopup);
 }
 
