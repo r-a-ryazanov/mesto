@@ -9,4 +9,5 @@
 }
 .popup__apply-button_disabled:hover {
   background-color:white;
+  cursor: default;
 }
