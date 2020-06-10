@@ -5,9 +5,7 @@
   border: 2px solid #FFFFFF;
   margin-left: auto;
   transition: opacity 1s linear 0s;
-  background-image: url(../../../images/add-button.svg);
-  background-repeat: no-repeat;
-  background-position: center;
+  background: url(../../../images/add-button.svg) no-repeat center;
   outline: none;
 }
 

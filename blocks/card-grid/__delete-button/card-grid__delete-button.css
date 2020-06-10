@@ -2,9 +2,7 @@
   width: 18px;
   height: 19.3px;
   border: none;
-  background-color: rgba(0, 0, 0, 0);
-  background-image: url(../../../images/Trash.svg);
-  background-size: 100%;
+  background: rgba(0, 0, 0, 0) url(../../../images/Trash.svg) 100%;
   transition: opacity 1s linear 0s;
   position: absolute;
   top: 18px;
