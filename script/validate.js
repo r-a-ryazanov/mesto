@@ -33,7 +33,7 @@ function toggleButtonState(inputList, buttonElement, inactiveButtonClass) {//ф�
     buttonElement.classList.remove(inactiveButtonClass);
     buttonElement.disabled = false;
   }
-};
+}
 const enableValidation = (inputObject) => {//функция включения валидации
   const formElement = document.querySelector(inputObject.formSelector);
   const inputList = Array.from(formElement.querySelectorAll(inputObject.inputSelector));
