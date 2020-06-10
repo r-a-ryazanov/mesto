@@ -2,7 +2,7 @@
   width: 20.76px;
   height: 18.13px;
   border: none;
-  background: rgba(0, 0, 0, 0) url(../../../images/heart.svg) 100%;
+  background: rgba(0, 0, 0, 0) url(../../../images/heart.svg);
   transition: opacity 1s linear 0s;
   outline: none;
 }

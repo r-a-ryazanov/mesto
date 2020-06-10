@@ -4,18 +4,18 @@ const popupCancelButton = page.querySelector(".popup__cancel-button");
 const popup = page.querySelector(".popup");
 const profileName = page.querySelector(".profile__name");
 const profileVocation = page.querySelector(".profile__vocation");
-const popupInputName = page.querySelector(".popup__input_type_name");
-const popupInputVocation = page.querySelector(".popup__input_type_vocation");
+const popupInputName = popup.querySelector("#name-input");
+const popupInputVocation = popup.querySelector("#vocation-input");
 const popupContainer = popup.querySelector(".popup__container");
 const cardGrid = page.querySelector(".card-grid");
 const cardTemplate = document.querySelector("#card").content;
 const profileAddButton = page.querySelector(".profile__add-button");
 const imagePopup = page.querySelector(".image-popup");
 const addPopup = page.querySelector(".add-popup");
-const addPopupContainer = addPopup.querySelector(".add-popup__container");
-const addPopupInputName = addPopup.querySelector(".add-popup__input_type_name");
-const addPopupInputLink = addPopup.querySelector(".add-popup__input_type_link");
-const addPopupCancelButton = addPopup.querySelector(".add-popup__cancel-button");
+const addPopupContainer = addPopup.querySelector(".popup__container");
+const addPopupInputName = addPopup.querySelector("#title-input");
+const addPopupInputLink = addPopup.querySelector("#link-input");
+const addPopupCancelButton = addPopup.querySelector(".popup__cancel-button");
 const initialCards = [
   {
     name: 'Архыз',
@@ -55,7 +55,7 @@ function openClosePopup(input) { //функция открытия/закрыт�
       popupInputVocation.value = profileVocation.textContent;
       input.classList.add('popup_opened');
       enableValidation({
-        formSelector: '.popup__container',
+        formSelector: '.popup',
         inputSelector: '.popup__input',
         submitButtonSelector: '.popup__apply-button',
         inactiveButtonClass: 'popup__apply-button_disabled',
@@ -82,9 +82,9 @@ function openClosePopup(input) { //функция открытия/закрыт�
       } else {
         input.classList.add('popup_opened');
         enableValidation({
-          formSelector: '.add-popup__container',
-          inputSelector: '.add-popup__input',
-          submitButtonSelector: '.add-popup__apply-button',
+          formSelector: '.add-popup',
+          inputSelector: '.popup__input',
+          submitButtonSelector: '.popup__apply-button',
           inactiveButtonClass: 'popup__apply-button_disabled',
           inputErrorClass: 'popup__input_type_error',
           errorClass: 'popup__error_visible'
@@ -150,7 +150,7 @@ const eventKeyHandler = (evt) => {
   }
 };
 
-imagePopup.querySelector(".image-popup__cancel-button").addEventListener('click', function () {
+imagePopup.querySelector(".popup__cancel-button").addEventListener('click', function () {
   openClosePopup(imagePopup);
 }); //прерывание при нажатии кнопки закрытия popup с картинкой
 imagePopup.addEventListener('click', function (evt) {
