@@ -49,7 +49,7 @@
     <!--Всплывающее окно-->
     <div class="popup edit-popup">
       <!--Форма изменения данных-->
-      <form name="edit-form" method="GET" action="#" class="popup__container" novalidate>
+      <form id="edit-form" method="GET" action="#" class="popup__container" novalidate>
         <!--Заголовок формы изменения данных-->
         <p class="popup__title">Редактировать профиль</p>
         <!--Область ввода имени путешественника-->
@@ -83,7 +83,7 @@
     <!--Всплывающее окно-->
     <div class="popup add-popup">
       <!--Форма добавления карточки-->
-      <form name="edit-form" method="GET" action="#" class="popup__container" novalidate>
+      <form id="add-form" method="GET" action="#" class="popup__container" novalidate>
         <!--Заголовок формы-->
         <p class="popup__title">Новое место</p>
         <!--Область ввода названия места-->
@@ -118,8 +118,9 @@
       <button type="button" aria-label="Удалить" class="card-grid__delete-button"></button>
     </div>
   </template>
-  <script src="./script/script.js"></script>
   <script src="./script/validate.js"></script>
+  <script src="./script/script.js"></script>
+  
 </body>
 
 </html>

@@ -42,59 +42,18 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+function openPopup(input) {
+  input.classList.add('popup_opened');
+  addEventListener('keydown', eventKeyHandler);
+  input.addEventListener('click', overlayClickHandler);
 
-
-function openClosePopup(input) { //функция открытия/закрытия popup
-
-  if (input === popup) {
-    if (input.classList.contains('popup_opened')) {
-      input.classList.remove('popup_opened');
-      removeEventListener('keydown', eventKeyHandler);
-    } else {
-      popupInputName.value = profileName.textContent;
-      popupInputVocation.value = profileVocation.textContent;
-      input.classList.add('popup_opened');
-      enableValidation({
-        formSelector: '.popup',
-        inputSelector: '.popup__input',
-        submitButtonSelector: '.popup__apply-button',
-        inactiveButtonClass: 'popup__apply-button_disabled',
-        inputErrorClass: 'popup__input_type_error',
-        errorClass: 'popup__error_visible'
-      });
-      addEventListener('keydown', eventKeyHandler);
-    }
-  } else {
-    if (input === imagePopup) {
-      if (input.classList.contains('popup_opened')) {
-        input.classList.remove('popup_opened');
-        removeEventListener('keydown', eventKeyHandler);
-      } else {
-        input.classList.add('popup_opened');
-
-        addEventListener('keydown', eventKeyHandler);
-      }
-    }  else {
-    if (input === addPopup) {
-      if (input.classList.contains('popup_opened')) {
-        input.classList.remove('popup_opened');
-        removeEventListener('keydown', eventKeyHandler);
-      } else {
-        input.classList.add('popup_opened');
-        enableValidation({
-          formSelector: '.add-popup',
-          inputSelector: '.popup__input',
-          submitButtonSelector: '.popup__apply-button',
-          inactiveButtonClass: 'popup__apply-button_disabled',
-          inputErrorClass: 'popup__input_type_error',
-          errorClass: 'popup__error_visible'
-        });
-        addEventListener('keydown', eventKeyHandler);
-      }
-    }
-  }
 }
+function closePopup(input) {
+  input.classList.remove('popup_opened');
+  removeEventListener('keydown', eventKeyHandler);
+  input.removeEventListener('click', overlayClickHandler);
 }
+
 
 function addCard(name, link) { //Функция добавления карточки
   const cardElement = cardTemplate.cloneNode(true);
@@ -106,7 +65,7 @@ function addCard(name, link) { //Функция добавления карто�
   cardGridImage.addEventListener('click', function () {//Прерывание на нажатие картинки
     imagePopup.querySelector(".image-popup__image").src = cardGridImage.src;
     imagePopup.querySelector(".image-popup__name").textContent = cardGridPlace.textContent;
-    openClosePopup(imagePopup);
+    openPopup(imagePopup);
   });
   const cardGridDeleteButton = cardElement.querySelector(".card-grid__delete-button");
   cardGridDeleteButton.addEventListener('click', function () {//прерывание на нажатие кнопки удаления карточки
@@ -127,52 +86,56 @@ initialCards.forEach(function (item) {//Добавление карточек и
 function formAddHandler(evt) { //функция добавления карты и закрытия формы 
   evt.preventDefault();
   addCard(addPopupInputName.value, addPopupInputLink.value);
-  openClosePopup(addPopup);
+  closePopup(addPopup);
 }
 
-function formSubmitHandler(evt) { //функция созхранения данных и закрытия формы изменения данных
+function formSubmitHandler(evt) { //функция сохранения данных и закрытия формы изменения данных
   evt.preventDefault();
   profileName.textContent = popupInputName.value;
   profileVocation.textContent = popupInputVocation.value;
-  openClosePopup(popup);
+  closePopup(popup);
 }
 const eventKeyHandler = (evt) => {
-  if (evt.key === 'Escape') {
-    if (popup.classList.contains('popup_opened')) {
-      openClosePopup(popup);
-    } else {
-      if (addPopup.classList.contains('popup_opened')) {
-        openClosePopup(addPopup);
-      } else {
-        if (imagePopup.classList.contains('popup_opened')) openClosePopup(imagePopup);
-      }
-    }
-  }
+  const openedPopup = document.querySelector('.popup_opened');
+  if (evt.key === "Escape") closePopup(openedPopup);
 };
+const overlayClickHandler = (evt) => {
+  closePopup(evt.target);
+};
+function openProfileForm() {
+  popupInputName.value = profileName.textContent;
+  popupInputVocation.value = profileVocation.textContent;
+  openPopup(popup);
+}
 
 imagePopup.querySelector(".popup__cancel-button").addEventListener('click', function () {
-  openClosePopup(imagePopup);
+  closePopup(imagePopup);
 }); //прерывание при нажатии кнопки закрытия popup с картинкой
-imagePopup.addEventListener('click', function (evt) {
-  if (evt.target.classList.contains('image-popup')) openClosePopup(imagePopup);
-});//прерывание при клике на оверлей popup с картинкой
 profileAddButton.addEventListener('click', function () {
-  openClosePopup(addPopup);
+  openPopup(addPopup);
 }); //Прерывание на нажатие кнопки добавить
 addPopupCancelButton.addEventListener('click', function () {
-  openClosePopup(addPopup);
-});//Прерывание на нажатие кнопки закрыть*/
-addPopup.addEventListener('click', function (evt) {
-  if (evt.target.classList.contains('add-popup')) openClosePopup(addPopup);
-});//прерывание при клике на оверлей popup добавления карточки
+  closePopup(addPopup);
+});//Прерывание на нажатие кнопки закрыть
 addPopupContainer.addEventListener('submit', formAddHandler);//Прерывание на нажатие кнопки сохранить
-profileEditButton.addEventListener('click', function () {
-  openClosePopup(popup);
-});  //прерывание на нажатие кнопки изменения данных
+profileEditButton.addEventListener('click', openProfileForm);  //прерывание на нажатие кнопки изменения данных
 popupCancelButton.addEventListener('click', function () {
-  openClosePopup(popup);
+  closePopup(popup);
 }); //прерывание на нажатие кнопки закрытия формы изменения данных
-popup.addEventListener('click', function (evt) {
-  if (evt.target.classList.contains('popup')) openClosePopup(popup);
-});//прерывание при клике на оверлей popup 
 popupContainer.addEventListener('submit', formSubmitHandler);//Прерывание на нажатие кнопки сохранит
+enableValidation({
+  formSelector: '#edit-form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__apply-button',
+  inactiveButtonClass: 'popup__apply-button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+});
+enableValidation({
+  formSelector: '#add-form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__apply-button',
+  inactiveButtonClass: 'popup__apply-button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+});
