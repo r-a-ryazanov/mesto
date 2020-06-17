@@ -1,4 +1,4 @@
-class FormValidator{
+export class FormValidator{
   constructor(inputObject, formElement){
     this.formElement = formElement;
     this.inputList = Array.from(formElement.querySelectorAll(inputObject.inputSelector));
@@ -7,55 +7,55 @@ class FormValidator{
     this.inputErrorClass = inputObject.inputErrorClass;
     this.errorClass = inputObject.errorClass;
   }
-  _showInputError(formElement, inputElement, errorMessage, inputErrorClass, errorClass) {//функция отображения сообщения об ошибке
+  _showInputError(inputElement, errorMessage) {//функция отображения сообщения об ошибке
     const errorElement = this.formElement.querySelector(`#${inputElement.id}-error`);
     inputElement.classList.add(this.inputErrorClass);
     errorElement.textContent = errorMessage;
-    errorElement.classList.add(errorClass);
+    errorElement.classList.add(this.errorClass);
   }
-  function hideInputError(formElement, inputElement, inputErrorClass, errorClass) {//функция скрытия сообщения об ошибке
-    const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-    inputElement.classList.remove(inputErrorClass);
-    errorElement.classList.remove(errorClass);
+   _hideInputError(inputElement) {//функция скрытия сообщения об ошибке
+    const errorElement = this.formElement.querySelector(`#${inputElement.id}-error`);
+    inputElement.classList.remove(this.inputErrorClass);
+    errorElement.classList.remove(this.errorClass);
     errorElement.textContent = '';
   }
-  function isValid(formElement, inputElement, inputErrorClass, errorClass) {//функция валидации инпута 
-    if (!inputElement.validity.valid) {
-  
-      showInputError(formElement, inputElement, inputElement.validationMessage, inputErrorClass, errorClass);
-    } else {
-  
-      hideInputError(formElement, inputElement, inputErrorClass, errorClass);
+  _isValid(inputElement) {//функция валидации инпута 
+    if (!inputElement.validity.valid) {  
+      this._showInputError(inputElement, inputElement.validationMessage);
+    } else {  
+      this._hideInputError(inputElement);
     }
   }
-  function hasInvalidInput(inputList) {//функция валидации всех полей в форме
-    return inputList.some((inputElement) => {
+  _hasInvalidInput() {//функция валидации всех полей в форме
+    return this.inputList.some((inputElement) => {
       return !inputElement.validity.valid;
   
     })
   }
-  function toggleButtonState(inputList, buttonElement, inactiveButtonClass) {//функция управления активностью кнопки
-    if (hasInvalidInput(inputList)) {
-      buttonElement.classList.add(inactiveButtonClass);
-      buttonElement.disabled = true;
+  _toggleButtonState() {//функция управления активностью кнопки
+    if (this._hasInvalidInput(this.inputList)) {
+      this.buttonElement.classList.add(this.inactiveButtonClass);
+      this.buttonElement.disabled = true;
     } else {
-      buttonElement.classList.remove(inactiveButtonClass);
-      buttonElement.disabled = false;
+      this.buttonElement.classList.remove(this.inactiveButtonClass);
+      this.buttonElement.disabled = false;
     }
   }
-  const enableValidation = (inputObject) => {//функция включения валидации
-    const formElement = document.querySelector(inputObject.formSelector);
-    const inputList = Array.from(formElement.querySelectorAll(inputObject.inputSelector));
-    const buttonElement = formElement.querySelector(inputObject.submitButtonSelector);
-    toggleButtonState(inputList, buttonElement, inputObject.inactiveButtonClass);
-    inputList.forEach((inputElement) => {
-      isValid(formElement, inputElement, inputObject.inputErrorClass, inputObject.errorClass);
+  enableValidation(){//функция включения валидации
+    this._toggleButtonState(this.inputList, this.buttonElement, this.inactiveButtonClass);
+    this.inputList.forEach((inputElement) => {
+      this._isValid( inputElement);
       inputElement.addEventListener('input', () => {
-        isValid(formElement, inputElement, inputObject.inputErrorClass, inputObject.errorClass);
-        toggleButtonState(inputList, buttonElement, inputObject.inactiveButtonClass);
+        this._isValid( inputElement);
+        this._toggleButtonState();
       });
-    });
-  
+    });  
+  }
+  checkValidation(){//функция проверки валидации при открытии попап
+    this._toggleButtonState(this.inputList, this.buttonElement, this.inactiveButtonClass);
+    this.inputList.forEach((inputElement) => {
+      this._isValid( inputElement);
+    });  
   }
 }
 

@@ -2,8 +2,8 @@ import {openPopup, imagePopup,imagePopupImage, imagePopupName} from './index.js'
 
 
 export class Card{
-  constructor(data, templateElement){
-    this.templateElement = templateElement;
+  constructor(data, templateElementSelector){
+    this.templateElement = templateElementSelector;
     this.name = data.name;
     this.link = data.link;
 
@@ -33,5 +33,5 @@ export class Card{
     cardGridLikeButton.classList.toggle('card-grid__like_active');
   });
   return cardElement;
-}
+  }
 }
