@@ -7,19 +7,19 @@ export class FormValidator{
     this.inputErrorClass = inputObject.inputErrorClass;
     this.errorClass = inputObject.errorClass;
   }
-  _showInputError(inputElement, errorMessage) {//функция отображения сообщения об ошибке
+  _showInputError(inputElement, errorMessage) {//функция отображения сообщения о неправильно введенных данных
     const errorElement = this.formElement.querySelector(`#${inputElement.id}-error`);
     inputElement.classList.add(this.inputErrorClass);
     errorElement.textContent = errorMessage;
     errorElement.classList.add(this.errorClass);
   }
-   _hideInputError(inputElement) {//функция скрытия сообщения об ошибке
+  _hideInputError(inputElement) {//функция скрытия сообщения о неправильно введенных данных
     const errorElement = this.formElement.querySelector(`#${inputElement.id}-error`);
     inputElement.classList.remove(this.inputErrorClass);
     errorElement.classList.remove(this.errorClass);
     errorElement.textContent = '';
   }
-  _isValid(inputElement) {//функция валидации инпута 
+  _isValid(inputElement) {////функция валидации инпута 
     if (!inputElement.validity.valid) {  
       this._showInputError(inputElement, inputElement.validationMessage);
     } else {  
@@ -29,8 +29,7 @@ export class FormValidator{
   _hasInvalidInput() {//функция валидации всех полей в форме
     return this.inputList.some((inputElement) => {
       return !inputElement.validity.valid;
-  
-    })
+    });
   }
   _toggleButtonState() {//функция управления активностью кнопки
     if (this._hasInvalidInput(this.inputList)) {
@@ -51,13 +50,11 @@ export class FormValidator{
       });
     });  
   }
-  checkValidation(){//функция проверки валидации при открытии попап
+  checkValidation(){//фунгкция проверки валидности при открытии попап
     this._toggleButtonState(this.inputList, this.buttonElement, this.inactiveButtonClass);
     this.inputList.forEach((inputElement) => {
       this._isValid( inputElement);
     });  
   }
 }
-
-
-
+  

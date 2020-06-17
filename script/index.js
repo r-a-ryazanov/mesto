@@ -1,5 +1,5 @@
 import { Card } from './Card.js'
-import { FormValidator } from './FormValidator.js'
+import { FormValidator } from './FormValidator.js'  
 const page = document.querySelector(".page");
 const profileEditButton = page.querySelector(".profile__edit-button");
 const popupCancelButton = page.querySelector(".popup__cancel-button");
@@ -10,6 +10,7 @@ const popupInputName = popup.querySelector("#name-input");
 const popupInputVocation = popup.querySelector("#vocation-input");
 const popupContainer = popup.querySelector(".popup__container");
 const cardGrid = page.querySelector(".card-grid");
+const cardTemplate = document.querySelector("#card").content;
 const profileAddButton = page.querySelector(".profile__add-button");
 const imagePopup = page.querySelector(".image-popup");
 const imagePopupImage = imagePopup.querySelector(".image-popup__image");
@@ -57,9 +58,10 @@ formsList.forEach((inputElement) => {
   }, document.querySelector(`#${inputElement.id}`));
   formValidator.enableValidation();
   formValidatorList.push(formValidator);
+
 });
 function openPopup(input) {//функция открытия всплывающего окна
-  formValidatorList.forEach((inputElement) =>{//проверка валидности перед открытием попап
+  formValidatorList.forEach((inputElement) =>{
     inputElement.checkValidation();
   });
   input.classList.add('popup_opened');
@@ -107,7 +109,6 @@ profileAddButton.addEventListener('click', () => openPopup(addPopup)); //Пре�
 addPopupCancelButton.addEventListener('click', () => closePopup(addPopup));//Прерывание на нажатие кнопки закрыть
 addPopupContainer.addEventListener('submit', formAddHandler);//Прерывание на нажатие кнопки сохранить
 profileEditButton.addEventListener('click', openProfileForm);  //прерывание на нажатие кнопки изменения данных
-popupCancelButton.addEventListener('click', () => closePopup(popup)); //прерывание на нажатие кнопки закрытия формы изменения данных
+popupCancelButton.addEventListener('click',() => closePopup(popup)); //прерывание на нажатие кнопки закрытия формы изменения данных
 popupContainer.addEventListener('submit', formSubmitHandler);//Прерывание на нажатие кнопки сохранит
-
 export { openPopup, imagePopup, imagePopupImage, imagePopupName };
