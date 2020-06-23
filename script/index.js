@@ -65,13 +65,15 @@ function openPopup(input) {//функция открытия всплывающ�
     inputElement.checkValidation();
   });
   input.classList.add('popup_opened');
-  addEventListener('keydown', eventKeyHandler);
+  
   input.addEventListener('click', overlayClickHandler);
+  document.addEventListener('keydown', eventKeyHandler);
 }
 function closePopup(input) {//функция закрытия всплывающего окна
   input.classList.remove('popup_opened');
-  removeEventListener('keydown', eventKeyHandler);
   input.removeEventListener('click', overlayClickHandler);
+  document.removeEventListener('keydown', eventKeyHandler);
+  
 }
 initialCards.forEach(function (item) {//Добавление карточек из массива
   const card = new Card(item, '#card');
@@ -97,7 +99,8 @@ const eventKeyHandler = (evt) => {//обработчик нажатия клав
   if (evt.key === "Escape") closePopup(openedPopup);
 };
 const overlayClickHandler = (evt) => {//обработчик клика
-  closePopup(evt.target);
+  const openedPopup = document.querySelector('.popup_opened');
+  if (openedPopup == evt.target) closePopup(evt.target);
 };
 function openProfileForm() {//функция открытия формы изменения данных
   popupInputName.value = profileName.textContent;
