@@ -1,22 +1,22 @@
 export class FormValidator{
-  constructor(inputObject, formElement){
-    this.formElement = formElement;
-    this.inputList = Array.from(formElement.querySelectorAll(inputObject.inputSelector));
-    this.buttonElement = formElement.querySelector(inputObject.submitButtonSelector);
-    this.inactiveButtonClass = inputObject.inactiveButtonClass;
-    this.inputErrorClass = inputObject.inputErrorClass;
-    this.errorClass = inputObject.errorClass;
+  constructor(configObject, formElement){
+    this._formElement = formElement;
+    this._inputList = Array.from(formElement.querySelectorAll(configObject.inputSelector));
+    this._buttonElement = formElement.querySelector(configObject.submitButtonSelector);
+    this._inactiveButtonClass = configObject.inactiveButtonClass;
+    this._inputErrorClass = configObject.inputErrorClass;
+    this._errorClass = configObject.errorClass;
   }
   _showInputError(inputElement, errorMessage) {//функция отображения сообщения о неправильно введенных данных
-    const errorElement = this.formElement.querySelector(`#${inputElement.id}-error`);
-    inputElement.classList.add(this.inputErrorClass);
+    const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
+    inputElement.classList.add(this._inputErrorClass);
     errorElement.textContent = errorMessage;
-    errorElement.classList.add(this.errorClass);
+    errorElement.classList.add(this._errorClass);
   }
   _hideInputError(inputElement) {//функция скрытия сообщения о неправильно введенных данных
-    const errorElement = this.formElement.querySelector(`#${inputElement.id}-error`);
-    inputElement.classList.remove(this.inputErrorClass);
-    errorElement.classList.remove(this.errorClass);
+    const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
+    inputElement.classList.remove(this._inputErrorClass);
+    errorElement.classList.remove(this._errorClass);
     errorElement.textContent = '';
   }
   _isValid(inputElement) {////функция валидации инпута 
@@ -27,23 +27,22 @@ export class FormValidator{
     }
   }
   _hasInvalidInput() {//функция валидации всех полей в форме
-    return this.inputList.some((inputElement) => {
+    return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     });
   }
   _toggleButtonState() {//функция управления активностью кнопки
-    if (this._hasInvalidInput(this.inputList)) {
-      this.buttonElement.classList.add(this.inactiveButtonClass);
-      this.buttonElement.disabled = true;
+    if (this._hasInvalidInput()) {
+      this._buttonElement.classList.add(this._inactiveButtonClass);
+      this._buttonElement.disabled = true;
     } else {
-      this.buttonElement.classList.remove(this.inactiveButtonClass);
-      this.buttonElement.disabled = false;
+      this._buttonElement.classList.remove(this._inactiveButtonClass);
+      this._buttonElement.disabled = false;
     }
   }
   enableValidation(){//функция включения валидации
-    this._toggleButtonState(this.inputList, this.buttonElement, this.inactiveButtonClass);
-    this.inputList.forEach((inputElement) => {
-      this._isValid( inputElement);
+    this._toggleButtonState();
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._isValid( inputElement);
         this._toggleButtonState();
@@ -51,8 +50,8 @@ export class FormValidator{
     });  
   }
   checkValidation(){//фунгкция проверки валидности при открытии попап
-    this._toggleButtonState(this.inputList, this.buttonElement, this.inactiveButtonClass);
-    this.inputList.forEach((inputElement) => {
+    this._toggleButtonState();
+    this._inputList.forEach((inputElement) => {
       this._isValid( inputElement);
     });  
   }
