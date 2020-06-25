@@ -1,5 +1,6 @@
 import { Card } from './Card.js'
 import { FormValidator } from './FormValidator.js'  
+import {initialCards} from './initialCardsData.js'
 const page = document.querySelector(".page");
 const profileEditButton = page.querySelector(".profile__edit-button");
 const popupCancelButton = page.querySelector(".popup__cancel-button");
@@ -10,7 +11,6 @@ const popupInputName = popup.querySelector("#name-input");
 const popupInputVocation = popup.querySelector("#vocation-input");
 const popupContainer = popup.querySelector(".popup__container");
 const cardGrid = page.querySelector(".card-grid");
-const cardTemplate = document.querySelector("#card").content;
 const profileAddButton = page.querySelector(".profile__add-button");
 const imagePopup = page.querySelector(".image-popup");
 const imagePopupImage = imagePopup.querySelector(".image-popup__image");
@@ -22,33 +22,8 @@ const addPopupInputLink = addPopup.querySelector("#link-input");
 const addPopupCancelButton = addPopup.querySelector(".popup__cancel-button");
 const formsList = document.querySelectorAll(".popup__container");
 const formValidatorList = [];
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-formsList.forEach((inputElement) => {
+
+formsList.forEach((inputElement) => {//создание экземпляров класса FormValidator, вызов метода enableValidation и запись указателей на экземпляры в массив, определенный в глобальной области видимости
   const formValidator = new FormValidator({
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__apply-button',
@@ -60,18 +35,20 @@ formsList.forEach((inputElement) => {
   formValidatorList.push(formValidator);
 
 });
-function openPopup(input) {//функция открытия всплывающего окна
+function openPopup(inputPopup) {//функция открытия всплывающего окна
   formValidatorList.forEach((inputElement) =>{
-    inputElement.checkValidation();
+    if (inputElement._formElement.closest('.popup') === inputPopup){//поиск экземпляра класса валидации форм, соответсвующего открываемому попапу
+      inputElement.checkValidation();
+    } 
   });
-  input.classList.add('popup_opened');
+  inputPopup.classList.add('popup_opened');
   
-  input.addEventListener('click', overlayClickHandler);
+  inputPopup.addEventListener('mousedown', overlayClickHandler);
   document.addEventListener('keydown', eventKeyHandler);
 }
-function closePopup(input) {//функция закрытия всплывающего окна
-  input.classList.remove('popup_opened');
-  input.removeEventListener('click', overlayClickHandler);
+function closePopup(inputPopup) {//функция закрытия всплывающего окна
+  inputPopup.classList.remove('popup_opened');
+  inputPopup.removeEventListener('mousedown', overlayClickHandler);
   document.removeEventListener('keydown', eventKeyHandler);
   
 }
