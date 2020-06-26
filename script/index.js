@@ -1,6 +1,7 @@
 import { Card } from './Card.js'
 import { FormValidator } from './FormValidator.js'  
 import {initialCards} from './initialCardsData.js'
+import {openPopup, closePopup} from './utils.js'
 const page = document.querySelector(".page");
 const profileEditButton = page.querySelector(".profile__edit-button");
 const popupCancelButton = page.querySelector(".popup__cancel-button");
@@ -33,21 +34,6 @@ const addFormValidator = new FormValidator(configObj, addPopupContainer);
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
-function openPopup(inputPopup) {//функция открытия всплывающего окна
-  if (inputPopup == popup) editFormValidator.checkValidation();
-  else addFormValidator.checkValidation();
-  
-  inputPopup.classList.add('popup_opened');
-  
-  inputPopup.addEventListener('mousedown', overlayClickHandler);
-  document.addEventListener('keydown', eventKeyHandler);
-}
-function closePopup(inputPopup) {//функция закрытия всплывающего окна
-  inputPopup.classList.remove('popup_opened');
-  inputPopup.removeEventListener('mousedown', overlayClickHandler);
-  document.removeEventListener('keydown', eventKeyHandler);
-  
-}
 initialCards.forEach(function (item) {//Добавление карточек из массива
   const card = new Card(item, '#card');
   cardGrid.prepend(card.addCard());
@@ -67,22 +53,17 @@ function formSubmitHandler(evt) { //функция сохранения данн
   profileVocation.textContent = popupInputVocation.value;
   closePopup(popup);
 }
-const eventKeyHandler = (evt) => {//обработчик нажатия клавиши
-  const openedPopup = document.querySelector('.popup_opened');
-  if (evt.key === "Escape") closePopup(openedPopup);
-};
-const overlayClickHandler = (evt) => {//обработчик клика
-  const openedPopup = document.querySelector('.popup_opened');
-  if (openedPopup == evt.target) closePopup(evt.target);
-};
+
 function openEditForm() {//функция открытия формы изменения данных
   popupInputName.value = profileName.textContent;
   popupInputVocation.value = profileVocation.textContent;
+  addFormValidator.checkValidation();
   openPopup(popup);
 }
-function openAddForm() {//функция открытия формы изменения данных
+function openAddForm() {//функция открытия формы добавления карточки
   addPopupInputName.value = '';
   addPopupInputLink.value = '';
+  addFormValidator.checkValidation();
   openPopup(addPopup);
 }
 imagePopup.querySelector(".popup__cancel-button").addEventListener('click', () => closePopup(imagePopup)); //прерывание при нажатии кнопки закрытия popup с картинкой

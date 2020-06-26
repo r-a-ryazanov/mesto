@@ -1,10 +1,11 @@
-import { openPopup, imagePopup, imagePopupImage, imagePopupName } from './index.js'
+import {imagePopup, imagePopupImage, imagePopupName } from './index.js'
+import {openPopup} from './utils.js'
 export class Card {
   constructor(data, templateElementSelector){
     this._templateElement = templateElementSelector;
     this._name = data.name;
     this._link = data.link;
-    this._cardElement = 1;
+    //this._cardElement = 1;
   }
   _imageClickHandler() {// обработчик клика по картирке
     imagePopupImage.src = this._link;
