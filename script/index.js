@@ -21,6 +21,7 @@ const addPopupContainer = addPopup.querySelector(".popup__container");
 const addPopupInputName = addPopup.querySelector("#title-input");
 const addPopupInputLink = addPopup.querySelector("#link-input");
 const addPopupCancelButton = addPopup.querySelector(".popup__cancel-button");
+
 const configObj = {
   inputSelector: '.popup__input', 
   submitButtonSelector: '.popup__apply-button',
@@ -36,7 +37,7 @@ addFormValidator.enableValidation();
 
 initialCards.forEach(function (item) {//Добавление карточек из массива
   const card = new Card(item, '#card');
-  cardGrid.prepend(card.addCard());
+  cardGrid.prepend(card.getCard());
 });
 function formAddHandler(evt) { //функция добавления карты и закрытия формы 
   evt.preventDefault();
@@ -44,7 +45,7 @@ function formAddHandler(evt) { //функция добавления карты 
   data.name = addPopupInputName.value;
   data.link = addPopupInputLink.value;
   const card = new Card(data, '#card');
-  cardGrid.prepend(card.addCard());
+  cardGrid.prepend(card.getCard());
   closePopup(addPopup);
 }
 function formSubmitHandler(evt) { //функция сохранения данных и закрытия формы изменения данных
@@ -57,7 +58,7 @@ function formSubmitHandler(evt) { //функция сохранения данн
 function openEditForm() {//функция открытия формы изменения данных
   popupInputName.value = profileName.textContent;
   popupInputVocation.value = profileVocation.textContent;
-  addFormValidator.checkValidation();
+  editFormValidator.checkValidation();
   openPopup(popup);
 }
 function openAddForm() {//функция открытия формы добавления карточки
