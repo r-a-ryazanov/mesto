@@ -20,27 +20,23 @@ const addPopupContainer = addPopup.querySelector(".popup__container");
 const addPopupInputName = addPopup.querySelector("#title-input");
 const addPopupInputLink = addPopup.querySelector("#link-input");
 const addPopupCancelButton = addPopup.querySelector(".popup__cancel-button");
-const formsList = document.querySelectorAll(".popup__container");
-const formValidatorList = [];
+const configObj = {
+  inputSelector: '.popup__input', 
+  submitButtonSelector: '.popup__apply-button',
+  inactiveButtonClass: 'popup__apply-button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
+const editFormValidator = new FormValidator(configObj, popupContainer);
+const addFormValidator = new FormValidator(configObj, addPopupContainer);
 
-formsList.forEach((inputElement) => {//создание экземпляров класса FormValidator, вызов метода enableValidation и запись указателей на экземпляры в массив, определенный в глобальной области видимости
-  const formValidator = new FormValidator({
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__apply-button',
-    inactiveButtonClass: 'popup__apply-button_disabled',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__error_visible'
-  }, document.querySelector(`#${inputElement.id}`));
-  formValidator.enableValidation();
-  formValidatorList.push(formValidator);
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
 
-});
 function openPopup(inputPopup) {//функция открытия всплывающего окна
-  formValidatorList.forEach((inputElement) =>{
-    if (inputElement._formElement.closest('.popup') === inputPopup){//поиск экземпляра класса валидации форм, соответсвующего открываемому попапу
-      inputElement.checkValidation();
-    } 
-  });
+  if (inputPopup == popup) editFormValidator.checkValidation();
+  else addFormValidator.checkValidation();
+  
   inputPopup.classList.add('popup_opened');
   
   inputPopup.addEventListener('mousedown', overlayClickHandler);
@@ -79,16 +75,21 @@ const overlayClickHandler = (evt) => {//обработчик клика
   const openedPopup = document.querySelector('.popup_opened');
   if (openedPopup == evt.target) closePopup(evt.target);
 };
-function openProfileForm() {//функция открытия формы изменения данных
+function openEditForm() {//функция открытия формы изменения данных
   popupInputName.value = profileName.textContent;
   popupInputVocation.value = profileVocation.textContent;
   openPopup(popup);
 }
+function openAddForm() {//функция открытия формы изменения данных
+  addPopupInputName.value = '';
+  addPopupInputLink.value = '';
+  openPopup(addPopup);
+}
 imagePopup.querySelector(".popup__cancel-button").addEventListener('click', () => closePopup(imagePopup)); //прерывание при нажатии кнопки закрытия popup с картинкой
-profileAddButton.addEventListener('click', () => openPopup(addPopup)); //Прерывание на нажатие кнопки добавить
+profileAddButton.addEventListener('click', openAddForm); //Прерывание на нажатие кнопки добавить
 addPopupCancelButton.addEventListener('click', () => closePopup(addPopup));//Прерывание на нажатие кнопки закрыть
 addPopupContainer.addEventListener('submit', formAddHandler);//Прерывание на нажатие кнопки сохранить
-profileEditButton.addEventListener('click', openProfileForm);  //прерывание на нажатие кнопки изменения данных
+profileEditButton.addEventListener('click', openEditForm);  //прерывание на нажатие кнопки изменения данных
 popupCancelButton.addEventListener('click',() => closePopup(popup)); //прерывание на нажатие кнопки закрытия формы изменения данных
 popupContainer.addEventListener('submit', formSubmitHandler);//Прерывание на нажатие кнопки сохранит
 export { openPopup, imagePopup, imagePopupImage, imagePopupName };
