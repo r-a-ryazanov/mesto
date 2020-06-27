@@ -1,5 +1,7 @@
-import {imagePopup, imagePopupImage, imagePopupName } from './index.js'
 import {openPopup} from './utils.js'
+const imagePopup = document.querySelector(".image-popup");
+const imagePopupImage = imagePopup.querySelector(".image-popup__image");
+const imagePopupName = imagePopup.querySelector(".image-popup__name");
 export class Card {
   constructor(data, templateElementSelector){
     this._templateElement = templateElementSelector;
