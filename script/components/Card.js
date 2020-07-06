@@ -1,7 +1,3 @@
-import {openPopup} from '../utils/utils.js'
-const imagePopup = document.querySelector(".image-popup");
-const imagePopupImage = imagePopup.querySelector(".image-popup__image");
-const imagePopupName = imagePopup.querySelector(".image-popup__name");
 export class Card {
   constructor(data, templateElementSelector, handleCardClick){
     this._templateElement = templateElementSelector;
@@ -9,12 +5,7 @@ export class Card {
     this.link = data.link;
     this._handleCardClick = handleCardClick;
   }
-  _imageClickHandler() {// обработчик клика по картирке
-    imagePopupImage.src = this.link;
-    imagePopupName.textContent = this.name;
-    imagePopupImage.setAttribute('alt', `Фото '${this.name}'`);
-    openPopup(imagePopup);
-  }
+   
   _deleteClickHandler(){//обработчик нажатия кнопки удаления
     this._cardElement.remove();
     this._cardElement = null;
