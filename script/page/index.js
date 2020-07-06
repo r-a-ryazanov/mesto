@@ -1,7 +1,9 @@
-import { Card } from './Card.js'
-import { FormValidator } from './FormValidator.js'  
-import {initialCards} from './initialCardsData.js'
-import {openPopup, closePopup} from './utils.js'
+import { Card } from '../components/Card.js'
+import { FormValidator } from '../components/FormValidator.js'  
+import {Section} from '../components/Section.js'
+import {initialCards} from '../utils/initialCardsData.js'
+//import {openPopup, closePopup} from '../utils/utils.js'
+import {PopupWithImage,PopupWithForm} from '../components/Popup.js'
 const page = document.querySelector(".page");
 const profileEditButton = page.querySelector(".profile__edit-button");
 const popupCancelButton = page.querySelector(".popup__cancel-button");
@@ -31,21 +33,37 @@ const configObj = {
 };
 const editFormValidator = new FormValidator(configObj, popupContainer);
 const addFormValidator = new FormValidator(configObj, addPopupContainer);
-
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
+const cardList = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const card = new Card(item, '#card');
+    cardList.addItem(card.getCard());
+  }
+}, ".card-grid");
+cardList.renderItems();
 
-initialCards.forEach(function (item) {//Добавление карточек из массива
-  const card = new Card(item, '#card');
-  cardGrid.prepend(card.getCard());
+const editPopup = new PopupWithForm(".edit-popup", (inputsData) => {
+  profileName.textContent = inputsData[0];
+  profileVocation.textContent = inputsData[1];
+  editPopup.close();
 });
+editPopup.setEventListeners();
+const addCardPopup = new PopupWithForm(".add-popup", (inputsData) => {
+  const card = new Card(inputsData, '#card');
+  cardList.addItem(card.getCard());
+  addCardPopup.close();
+});
+addCardPopup.setEventListeners();
+/*
 function formAddHandler(evt) { //функция добавления карты и закрытия формы 
   evt.preventDefault();
   const data = {};
   data.name = addPopupInputName.value;
   data.link = addPopupInputLink.value;
   const card = new Card(data, '#card');
-  cardGrid.prepend(card.getCard());
+  cardList.addItem(card.getCard());
   closePopup(addPopup);
 }
 function formSubmitHandler(evt) { //функция сохранения данных и закрытия формы изменения данных
@@ -67,11 +85,15 @@ function openAddForm() {//функция открытия формы добав�
   addFormValidator.checkValidation();
   openPopup(addPopup);
 }
-imagePopup.querySelector(".popup__cancel-button").addEventListener('click', () => closePopup(imagePopup)); //прерывание при нажатии кнопки закрытия popup с картинкой
-profileAddButton.addEventListener('click', openAddForm); //Прерывание на нажатие кнопки добавить
-addPopupCancelButton.addEventListener('click', () => closePopup(addPopup));//Прерывание на нажатие кнопки закрыть
-addPopupContainer.addEventListener('submit', formAddHandler);//Прерывание на нажатие кнопки сохранить
-profileEditButton.addEventListener('click', openEditForm);  //прерывание на нажатие кнопки изменения данных
-popupCancelButton.addEventListener('click',() => closePopup(popup)); //прерывание на нажатие кнопки закрытия формы изменения данных
-popupContainer.addEventListener('submit', formSubmitHandler);//Прерывание на нажатие кнопки сохранит
-export { openPopup, imagePopup, imagePopupImage, imagePopupName };
+imagePopup.querySelector(".popup__cancel-button").addEventListener('click', () => closePopup(imagePopup)); //прерывание при нажатии кнопки закрытия popup с картинкой*/
+profileAddButton.addEventListener('click', () => addCardPopup.open()); //Прерывание на нажатие кнопки добавить
+/*addPopupCancelButton.addEventListener('click', () => closePopup(addPopup));//Прерывание на нажатие кнопки закрыть
+addPopupContainer.addEventListener('submit', formAddHandler);//Прерывание на нажатие кнопки сохранить*/
+profileEditButton.addEventListener('click', () =>{ 
+  popupInputName.value = profileName.textContent;
+  popupInputVocation.value = profileVocation.textContent;
+  editFormValidator.checkValidation();
+  editPopup.open();});  //прерывание на нажатие кнопки изменения данных
+/*popupCancelButton.addEventListener('click',() => closePopup(popup)); //прерывание на нажатие кнопки закрытия формы изменения данных
+popupContainer.addEventListener('submit', formSubmitHandler);//Прерывание на нажатие кнопки сохранит*/
+export {imagePopup, imagePopupImage, imagePopupName };
