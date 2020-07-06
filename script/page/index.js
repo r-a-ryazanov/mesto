@@ -35,27 +35,32 @@ const editFormValidator = new FormValidator(configObj, popupContainer);
 const addFormValidator = new FormValidator(configObj, addPopupContainer);
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
+const popupWithImage = new PopupWithImage(".image-popup");
+popupWithImage.setEventListeners();
 const cardList = new Section({
   items: initialCards,
   renderer: (item) => {
-    const card = new Card(item, '#card');
+    const card = new Card(item, '#card', () => {
+      popupWithImage.open(card.name, card.link);
+    });
     cardList.addItem(card.getCard());
   }
 }, ".card-grid");
 cardList.renderItems();
 
-const editPopup = new PopupWithForm(".edit-popup", (inputsData) => {
+const popupWithEditForm = new PopupWithForm(".edit-popup", (inputsData) => {
   profileName.textContent = inputsData[0];
   profileVocation.textContent = inputsData[1];
-  editPopup.close();
+  popupWithEditForm.close();
 });
-editPopup.setEventListeners();
-const addCardPopup = new PopupWithForm(".add-popup", (inputsData) => {
+popupWithEditForm.setEventListeners();
+const popupWithAddForm = new PopupWithForm(".add-popup", (inputsData) => {
   const card = new Card(inputsData, '#card');
   cardList.addItem(card.getCard());
-  addCardPopup.close();
+  popupWithAddForm.close();
 });
-addCardPopup.setEventListeners();
+popupWithAddForm.setEventListeners();
+
 /*
 function formAddHandler(evt) { //функция добавления карты и закрытия формы 
   evt.preventDefault();
@@ -86,13 +91,13 @@ function openAddForm() {//функция открытия формы добав�
   openPopup(addPopup);
 }
 imagePopup.querySelector(".popup__cancel-button").addEventListener('click', () => closePopup(imagePopup)); //прерывание при нажатии кнопки закрытия popup с картинкой*/
-profileAddButton.addEventListener('click', () => addCardPopup.open()); //Прерывание на нажатие кнопки добавить
+profileAddButton.addEventListener('click', () => popupWithAddForm.open()); //Прерывание на нажатие кнопки добавить
 /*addPopupCancelButton.addEventListener('click', () => closePopup(addPopup));//Прерывание на нажатие кнопки закрыть
 addPopupContainer.addEventListener('submit', formAddHandler);//Прерывание на нажатие кнопки сохранить*/
 profileEditButton.addEventListener('click', () =>{ 
   popupInputName.value = profileName.textContent;
   popupInputVocation.value = profileVocation.textContent;
-  editFormValidator.checkValidation();
+  popupWithEditForm.checkValidation();
   editPopup.open();});  //прерывание на нажатие кнопки изменения данных
 /*popupCancelButton.addEventListener('click',() => closePopup(popup)); //прерывание на нажатие кнопки закрытия формы изменения данных
 popupContainer.addEventListener('submit', formSubmitHandler);//Прерывание на нажатие кнопки сохранит*/
