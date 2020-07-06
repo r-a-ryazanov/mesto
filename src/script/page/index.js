@@ -4,7 +4,7 @@ import { Section } from '../components/Section.js'
 import { initialCards } from '../utils/initialCardsData.js'
 import { PopupWithImage, PopupWithForm } from '../components/Popup.js'
 import { UserInfo } from '../components/UserInfo.js'
-
+import '../../pages/index.css';
 const page = document.querySelector(".page");
 const profileEditButton = page.querySelector(".profile__edit-button");
 const popup = page.querySelector(".edit-popup");
