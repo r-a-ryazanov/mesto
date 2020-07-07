@@ -51,7 +51,11 @@ const popupWithAddForm = new PopupWithForm(".add-popup", (inputsData) => {
   popupWithAddForm.close();
 });
 popupWithAddForm.setEventListeners();
-profileAddButton.addEventListener('click', () => popupWithAddForm.open()); //Прерывание на нажатие кнопки добавить
+profileAddButton.addEventListener('click', () => {
+  addFormValidator.checkValidation();
+  popupWithAddForm.open();
+  
+}); //Прерывание на нажатие кнопки добавить
 profileEditButton.addEventListener('click', () => {
   const profileData = userInfo.getUserInfo();
   popupInputName.value = profileData[0];
