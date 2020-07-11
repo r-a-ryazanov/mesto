@@ -4,7 +4,7 @@ export class UserInfo{
     this._vocationElement = document.querySelector(vocationElementSelector);
   }
   getUserInfo(){//получение данных из области профиля
-    return [this._nameElement.textContent, this._vocationElement.textContent]
+    return {name: this._nameElement.textContent, description: this._vocationElement.textContent};
   }
   setUserInfo(inputData){//изменение данных в области профиля
     this._nameElement.textContent = inputData[0];

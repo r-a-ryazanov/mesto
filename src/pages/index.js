@@ -1,10 +1,11 @@
-import { Card } from '../components/Card.js'
-import { FormValidator } from '../components/FormValidator.js'
-import { Section } from '../components/Section.js'
-import { initialCards } from '../utils/initialCardsData.js'
-import { PopupWithImage, PopupWithForm } from '../components/Popup.js'
-import { UserInfo } from '../components/UserInfo.js'
-import '../../pages/index.css';
+import { Card } from '../script/components/Card.js'
+import { FormValidator } from '../script/components/FormValidator.js'
+import { Section } from '../script/components/Section.js'
+import { initialCards } from '../script/utils/initialCardsData.js'
+import {  PopupWithForm } from '../script/components/PopupWithForm.js'
+import { PopupWithImage} from '../script/components/PopupWithImage.js'
+import { UserInfo } from '../script/components/UserInfo.js'
+import './index.css';
 const page = document.querySelector(".page");
 const profileEditButton = page.querySelector(".profile__edit-button");
 const popup = page.querySelector(".edit-popup");
@@ -28,7 +29,7 @@ const editFormValidator = new FormValidator(configObj, popupContainer);
 const addFormValidator = new FormValidator(configObj, addPopupContainer);
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
-const popupWithImage = new PopupWithImage(".image-popup");
+const popupWithImage = new PopupWithImage(".image-popup", ".image-popup__image", ".image-popup__name");
 popupWithImage.setEventListeners();
 const cardList = new Section({
   items: initialCards,
@@ -46,7 +47,7 @@ const popupWithEditForm = new PopupWithForm(".edit-popup", (inputsData) => {
 });
 popupWithEditForm.setEventListeners();
 const popupWithAddForm = new PopupWithForm(".add-popup", (inputsData) => {
-  const card = new Card(inputsData, '#card');
+  const card = new Card({name: inputsData[0], link: inputsData[1]}, '#card');
   cardList.addItem(card.getCard());
   popupWithAddForm.close();
 });
@@ -58,8 +59,8 @@ profileAddButton.addEventListener('click', () => {
 }); //Прерывание на нажатие кнопки добавить
 profileEditButton.addEventListener('click', () => {
   const profileData = userInfo.getUserInfo();
-  popupInputName.value = profileData[0];
-  popupInputVocation.value = profileData[1];
+  popupInputName.value = profileData.name;
+  popupInputVocation.value = profileData.description;
   editFormValidator.checkValidation();
   popupWithEditForm.open();
 });  //прерывание на нажатие кнопки изменения данных

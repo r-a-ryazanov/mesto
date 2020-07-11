@@ -10,7 +10,7 @@ export class Section{
       this._renderItem(item);
     });
   }
-  addItem(InputEvent){//функция добавления карточки в разметку
-    this._container.prepend(InputEvent);
+  addItem(inputElement){//функция добавления карточки в разметку
+    this._container.prepend(inputElement);
   }
 }
