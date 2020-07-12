@@ -7,7 +7,7 @@ export class UserInfo{
     return {name: this._nameElement.textContent, description: this._vocationElement.textContent};
   }
   setUserInfo(inputData){//изменение данных в области профиля
-    this._nameElement.textContent = inputData[0];
-    this._vocationElement.textContent = inputData[1];
+    this._nameElement.textContent = inputData.name;
+    this._vocationElement.textContent = inputData.description;
   }
 }

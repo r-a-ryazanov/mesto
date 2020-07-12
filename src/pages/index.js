@@ -42,12 +42,14 @@ const cardList = new Section({
 }, ".card-grid");
 cardList.renderItems();
 const popupWithEditForm = new PopupWithForm(".edit-popup", (inputsData) => {
-  userInfo.setUserInfo(inputsData);
+  userInfo.setUserInfo({name: inputsData[0], description: inputsData[1]});
   popupWithEditForm.close();
 });
 popupWithEditForm.setEventListeners();
 const popupWithAddForm = new PopupWithForm(".add-popup", (inputsData) => {
-  const card = new Card({name: inputsData[0], link: inputsData[1]}, '#card');
+  const card = new Card({name: inputsData[0], link: inputsData[1]}, '#card', () => {
+    popupWithImage.open(card.name, card.link);
+  });
   cardList.addItem(card.getCard());
   popupWithAddForm.close();
 });
