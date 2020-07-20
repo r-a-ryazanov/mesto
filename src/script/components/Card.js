@@ -1,15 +1,12 @@
 export class Card {
-  constructor(data, templateElementSelector, handleCardClick){
+  constructor(data, templateElementSelector, handleCardClick, handleDeliteClick){
     this._templateElement = templateElementSelector;
     this.name = data.name;
     this.link = data.link;
     this._handleCardClick = handleCardClick;
+    this._handleDeliteClick = handleDeliteClick;
   }
    
-  _deleteClickHandler(){//обработчик нажатия кнопки удаления
-    this._cardElement.remove();
-    this._cardElement = null;
-  }
   _likeClickHandler(){//обработчик нажатия кнопки лайк
     this._cardElement.querySelector('.card-grid__like').classList.toggle('card-grid__like_active');
   }
@@ -20,7 +17,7 @@ export class Card {
   }
   _setEventListeners(){//функция включения слушателей
     this._cardElement.querySelector(".card-grid__image").addEventListener('click', () => this._handleCardClick());// прерывание на клик по картинке
-    this._cardElement.querySelector(".card-grid__delete-button").addEventListener('click', () => this._deleteClickHandler());//прерывание на клик по кнопке удаления 
+    this._cardElement.querySelector(".card-grid__delete-button").addEventListener('click', () => this._handleDeliteClick(this));//прерывание на клик по кнопке удаления 
     this._cardElement.querySelector(".card-grid__like").addEventListener('click', () => this._likeClickHandler())//прерывание на клик по кнопке лайк
   }
   getCard() { //функция добавления карточки

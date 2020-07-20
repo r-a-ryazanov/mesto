@@ -5,6 +5,7 @@ import { initialCards } from '../script/utils/initialCardsData.js'
 import {  PopupWithForm } from '../script/components/PopupWithForm.js'
 import { PopupWithImage} from '../script/components/PopupWithImage.js'
 import { UserInfo } from '../script/components/UserInfo.js'
+import {PopupWithConfirmation} from '../script/components/PopupWithConfirmation.js'
 import './index.css';
 const page = document.querySelector(".page");
 const profileEditButton = page.querySelector(".profile__edit-button");
@@ -23,7 +24,11 @@ const configObj = {
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
 };
-
+const popupWithConfirmation = new PopupWithConfirmation(".confirm-popup", (cardElement) => {
+    cardElement._cardElement.remove();
+      cardElement._cardElement = null;
+});
+popupWithConfirmation.setEventListeners();
 const userInfo = new UserInfo(".profile__name", ".profile__vocation");
 const editFormValidator = new FormValidator(configObj, popupContainer);
 const addFormValidator = new FormValidator(configObj, addPopupContainer);
@@ -36,11 +41,16 @@ const cardList = new Section({
   renderer: (item) => {
     const card = new Card(item, '#card', () => {
       popupWithImage.open(card.name, card.link);
+    }, (cardElement) => {
+      popupWithConfirmation.open(cardElement);
     });
+    
     cardList.addItem(card.getCard());
+    card._cardElement.querySelector('.card-grid__delete-button').classList.add('card-grid__delete-button_disable');
   }
 }, ".card-grid");
 cardList.renderItems();
+
 const popupWithEditForm = new PopupWithForm(".edit-popup", (inputsData) => {
   userInfo.setUserInfo({name: inputsData.upInput, description: inputsData.downInput});
   popupWithEditForm.close();
@@ -49,11 +59,14 @@ popupWithEditForm.setEventListeners();
 const popupWithAddForm = new PopupWithForm(".add-popup", (inputsData) => {
   const card = new Card({name: inputsData.upInput, link: inputsData.downInput}, '#card', () => {
     popupWithImage.open(card.name, card.link);
+  }, (cardElement) => {
+      popupWithConfirmation.open(cardElement);
   });
   cardList.addItem(card.getCard());
   popupWithAddForm.close();
 });
 popupWithAddForm.setEventListeners();
+
 profileAddButton.addEventListener('click', () => {
   addFormValidator.checkValidation();
   popupWithAddForm.open();
