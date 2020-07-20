@@ -12,3 +12,4 @@
 @import url("../blocks/popup/__error/popup__error.css");
 @import url("../blocks/popup/__error/_visible/popup__error_visible.css");
 @import url("../blocks/popup/__apply-button/_disabled/popup__apply-button_disabled.css");
+@import url("../blocks/confirm-popup/confirm-popup.css");

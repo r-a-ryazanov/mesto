@@ -5,6 +5,7 @@
   background: rgba(0, 0, 0, 0) url(../../../images/heart.svg);
   transition: opacity 1s linear 0s;
   outline: none;
+  margin-bottom: 3px;
 }
 
 .card-grid__like:hover {

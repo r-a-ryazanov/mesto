@@ -46,7 +46,7 @@
       <h4 class="footer__copyright">&copy; 2020 Mesto Russia</h4>
     </footer>
     <!--Всплывающее окно-->
-    <div class="popup edit-popup">
+    <div class="popup edit-popup ">
       <!--Форма изменения данных-->
       <form id="edit-form" name="edit-form" method="GET" action="#" class="popup__container" novalidate>
         <!--Заголовок формы изменения данных-->
@@ -98,6 +98,33 @@
         <button type="submit" class="popup__apply-button">Создать</button>
       </form>
     </div>
+    <!--Всплывающее окно-->
+    <div class="popup confirm-popup">
+      <!--Форма подтверждения-->
+      <form id="confirm-form" name="confirm-form" method="GET" action="#" class="popup__container" novalidate>
+        <!--Заголовок формы-->
+        <p class="popup__title">Вы уверены?</p>
+        <!--Кнопка закрытия всплывающего окна-->
+        <button type="button" aria-label="Закрыть" class="popup__cancel-button"> </button>
+        <!--Кнопка подтверждения и закрытия окна-->
+        <button type="submit" class="popup__apply-button confirm-popup__apply-button">Создать</button>
+      </form>
+    </div>
+    <!--Всплывающее окно-->
+    <div class="popup update-popup">
+      <!--Форма обновления аватара-->
+      <form id="update-form" name="update-form" method="GET" action="#" class="popup__container" novalidate>
+        <!--Заголовок формы-->
+        <p class="popup__title">Обновить аватар</p>
+        <!--Область ввода ссылки на аватар-->
+        <input type="url" id="link-input" required placeholder="Ссылка на аватар" class="popup__input">
+        <span class="popup__error" id="link-input-error"></span>
+        <!--Кнопка закрытия всплывающего окна-->
+        <button type="button" aria-label="Закрыть" class="popup__cancel-button"> </button>
+        <!--Кнопка добавления карточки и закрытия окна-->
+        <button type="submit" class="popup__apply-button">Создать</button>
+      </form>
+    </div>
   </div>
 
   <template id="card">
@@ -110,7 +137,12 @@
         <!--Название места-->
         <h3 class="card-grid__place"></h3>
         <!--Кнопка лайк-->
-        <button type="button" aria-label="Нравится" class="card-grid__like"></button>
+        <div>
+          <button type="button" aria-label="Нравится" class="card-grid__like"></button>
+          <p class="card-grid__like-count">0</p>
+
+        </div>
+        
       </div>
       <!--Кнопка удаления карточки-->
       <button type="button" aria-label="Удалить" class="card-grid__delete-button"></button>

@@ -5,6 +5,7 @@
 @import url("./__place/card-grid__place.css");
 @import url("./__delete-button/card-grid__delete-button.css");
 @import url("./__like/_active/card-grid__like_active.css");
+@import url("./__like-count/card-grid__like-count.css");
 .card-grid {
   max-width: 1200px;
   margin: auto;
