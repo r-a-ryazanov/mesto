@@ -8,10 +8,10 @@ export class PopupWithForm extends Popup{
   }
   _getInputValues(){//функция получения данный из инпутов
     const inputList = Array.from(this._popup.querySelectorAll('input'));
-    const inputsData = {
-      upInput: inputList[0].value,
-      downInput: inputList[1].value
-    };
+    const inputsData = {};
+    inputList.forEach((input) => {
+      inputsData[input.name] = input.value;
+    });
     return inputsData;
   }
   setEventListeners(){////функция установки слушателей для popup с формой

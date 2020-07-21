@@ -6,6 +6,7 @@ import {  PopupWithForm } from '../script/components/PopupWithForm.js'
 import { PopupWithImage} from '../script/components/PopupWithImage.js'
 import { UserInfo } from '../script/components/UserInfo.js'
 import {PopupWithConfirmation} from '../script/components/PopupWithConfirmation.js'
+import {Api} from '../script/components/Api.js'
 import './index.css';
 const page = document.querySelector(".page");
 const profileEditButton = page.querySelector(".profile__edit-button");
@@ -16,7 +17,18 @@ const popupContainer = popup.querySelector(".popup__container");
 const profileAddButton = page.querySelector(".profile__add-button");
 const addPopup = page.querySelector(".add-popup");
 const addPopupContainer = addPopup.querySelector(".popup__container");
+const api = new Api({
 
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-13',
+  headers: {
+    authorization: '0dcb61a0-e155-4c98-8825-cdfb2e75e352',
+    'Content-Type': 'application/json'
+  }});
+const initialsCard = api.getInitialCards();
+console.log(initialsCard);
+/*initialsCard.array.forEach(element => {
+  console.log(element);
+});*/
 const configObj = {
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__apply-button',
@@ -32,8 +44,10 @@ popupWithConfirmation.setEventListeners();
 const userInfo = new UserInfo(".profile__name", ".profile__vocation");
 const editFormValidator = new FormValidator(configObj, popupContainer);
 const addFormValidator = new FormValidator(configObj, addPopupContainer);
+const updateFormValidator = new FormValidator(configObj, page.querySelector('.update-popup').querySelector(".popup__container"));
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
+updateFormValidator.enableValidation();
 const popupWithImage = new PopupWithImage(".image-popup", ".image-popup__image", ".image-popup__name");
 popupWithImage.setEventListeners();
 const cardList = new Section({
@@ -52,12 +66,12 @@ const cardList = new Section({
 cardList.renderItems();
 
 const popupWithEditForm = new PopupWithForm(".edit-popup", (inputsData) => {
-  userInfo.setUserInfo({name: inputsData.upInput, description: inputsData.downInput});
+  userInfo.setUserInfo(inputsData);
   popupWithEditForm.close();
 });
 popupWithEditForm.setEventListeners();
 const popupWithAddForm = new PopupWithForm(".add-popup", (inputsData) => {
-  const card = new Card({name: inputsData.upInput, link: inputsData.downInput}, '#card', () => {
+  const card = new Card(inputsData, '#card', () => {
     popupWithImage.open(card.name, card.link);
   }, (cardElement) => {
       popupWithConfirmation.open(cardElement);
@@ -66,7 +80,15 @@ const popupWithAddForm = new PopupWithForm(".add-popup", (inputsData) => {
   popupWithAddForm.close();
 });
 popupWithAddForm.setEventListeners();
-
+const popupWithUpdateForm = new PopupWithForm(".update-popup",(inputsData) => {
+  page.querySelector('.profile__avatar').src = inputsData.link;
+  popupWithUpdateForm.close();
+});
+popupWithUpdateForm.setEventListeners();
+page.querySelector('.profile__avatar-place').addEventListener('click',() => {
+  updateFormValidator.checkValidation();
+  popupWithUpdateForm.open()
+});
 profileAddButton.addEventListener('click', () => {
   addFormValidator.checkValidation();
   popupWithAddForm.open();
