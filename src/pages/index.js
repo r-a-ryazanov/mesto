@@ -78,11 +78,11 @@ const popupWithConfirmation = new PopupWithConfirmation(".confirm-popup", (cardE
 });
 popupWithConfirmation.setEventListeners();
 //--------Создание экземпляра класса информации о пользователе
-const userInfo = new UserInfo(".profile__name", ".profile__vocation");
+const userInfo = new UserInfo(".profile__name", ".profile__vocation", ".profile__avatar");
 //-------Получение данных о пользователе с сервера 
 api.getUserInfo((data) => {
   userInfo.setUserInfo(data);
-  profileAvatar.src = data.avatar;
+  userInfo.setAvatarLink(data.avatar) ;
 
 });
 //--------Создание экземпляра класса валидации формы изменения данных
@@ -146,7 +146,7 @@ popupWithAddForm.setEventListeners();
 const popupWithUpdateForm = new PopupWithForm(".update-popup", (inputsData) => {
 
   api.updateUserAvatar(inputsData.link, (data) => {
-    page.querySelector('.profile__avatar').src = data.avatar;
+    userInfo.setAvatarLink(data.avatar);
 
   }, (isLoading) => {
     if (isLoading) {
