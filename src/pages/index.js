@@ -29,35 +29,43 @@ const api = new Api({
     'Content-Type': 'application/json'
   }
 });
-//-------Создание экземпляра класса секция
-const cardList = new Section(
-  (item) => {
-    const card = new Card(item, '#card', () => {
-      popupWithImage.open(card.name, card.link);
-    }, (cardElement) => {
-      popupWithConfirmation.open(cardElement);
-    }, (cardElement, isLiked) => {
-      if (isLiked) {
-        api.disLikeCard(cardElement.id, (data) => {
-          cardElement._cardElement.querySelector('.card-grid__like-count').textContent = data.likes.length;
-          cardElement._cardElement.querySelector('.card-grid__like').classList.toggle('card-grid__like_active');
-        });
-      } else {
-        api.likeCard(cardElement.id, (data) => {
-          cardElement._cardElement.querySelector('.card-grid__like-count').textContent = data.likes.length;
-          cardElement._cardElement.querySelector('.card-grid__like').classList.toggle('card-grid__like_active');
-        });
-      }
-    });
+ function rendererCard (item) {
+  const card = new Card(item, '#card', () => {
+    popupWithImage.open(card.name, card.link);
+  }, (cardElement) => {
+    popupWithConfirmation.open(cardElement);
+  }, (cardElement, isLiked) => {
+    if (isLiked) {
+      api.disLikeCard(cardElement.id, (data) => {
+        cardElement._cardElement.querySelector('.card-grid__like-count').textContent = data.likes.length;
+        cardElement._cardElement.querySelector('.card-grid__like').classList.toggle('card-grid__like_active');
+      });
+    } else {
+      api.likeCard(cardElement.id, (data) => {
+        cardElement._cardElement.querySelector('.card-grid__like-count').textContent = data.likes.length;
+        cardElement._cardElement.querySelector('.card-grid__like').classList.toggle('card-grid__like_active');
+      });
+    }
+  });
+  return card;
+  
+  
+}
 
-    cardList.addItem(card.getCard());
-    card._cardElement.querySelector('.card-grid__delete-button').classList.add('card-grid__delete-button_disable');
-  }
-  , ".card-grid");
+let cardList = {};
+
 //-------Получение карточек с сервера
 api.getInitialCards((cardArray) => {
-
-  cardList.renderItems(cardArray);
+  //-------Создание экземпляра класса секция
+  cardList = new Section({
+    items: cardArray,
+    renderer: (item) => {
+      const card = rendererCard(item);
+      cardList.addItem(card.getCard());
+      card._cardElement.querySelector('.card-grid__delete-button').classList.add('card-grid__delete-button_disable');
+    }
+  }, ".card-grid");
+  cardList.renderItems();
 
 });
 //----------Конфигурационный объект для валидации
@@ -82,7 +90,7 @@ const userInfo = new UserInfo(".profile__name", ".profile__vocation", ".profile_
 //-------Получение данных о пользователе с сервера 
 api.getUserInfo((data) => {
   userInfo.setUserInfo(data);
-  userInfo.setAvatarLink(data.avatar) ;
+  userInfo.setAvatarLink(data.avatar);
 
 });
 //--------Создание экземпляра класса валидации формы изменения данных
@@ -113,24 +121,8 @@ const popupWithEditForm = new PopupWithForm(".edit-popup", (inputsData) => {
 popupWithEditForm.setEventListeners();
 //--------Создание экземпляра класса всплывающего окна добавления карточки
 const popupWithAddForm = new PopupWithForm(".add-popup", (inputsData) => {
-  api.addCard(inputsData, (data) => {
-    const card = new Card(data, '#card', () => {
-      popupWithImage.open(card.name, card.link);
-    }, (cardElement) => {
-      popupWithConfirmation.open(cardElement);
-    }, (cardElement, isLiked) => {
-      if (isLiked) {
-        api.disLikeCard(cardElement.id, (data) => {
-          cardElement._cardElement.querySelector('.card-grid__like-count').textContent = data.likes.length;
-          cardElement._cardElement.querySelector('.card-grid__like').classList.toggle('card-grid__like_active');
-        });
-      } else {
-        api.likeCard(cardElement.id, (data) => {
-          cardElement._cardElement.querySelector('.card-grid__like-count').textContent = data.likes.length;
-          cardElement._cardElement.querySelector('.card-grid__like').classList.toggle('card-grid__like_active');
-        });
-      }
-    });
+  api.addCard(inputsData, (item) => {
+    const card = rendererCard(item);
     cardList.addItem(card.getCard());
   }, (isLoading) => {
     if (isLoading) {

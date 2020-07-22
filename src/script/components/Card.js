@@ -8,6 +8,7 @@ export class Card {
     this.likeCount = data.likes.length;
     this.id = data._id;
     this._handleLikeClick = handleLikeClick;
+    
   }
   _getCardElement() {//функция получения шаблона карточки
     const cardTemplate = document.querySelector(this._templateElement).content;
@@ -21,6 +22,7 @@ export class Card {
   }
   getCard() { //функция добавления карточки
     this._cardElement = this._getCardElement();
+    
     this._cardElement.querySelector(".card-grid__place").textContent = this.name;
     const cardGridImage = this._cardElement.querySelector(".card-grid__image");
     cardGridImage.src = this.link;
