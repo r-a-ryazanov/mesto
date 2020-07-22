@@ -22,14 +22,14 @@ const addPopupContainer = addPopup.querySelector(".popup__container");
 const updatePopupApplyButton = page.querySelector(".update-popup").querySelector(".popup__apply-button");
 //--------Создание экземпляра класса Api
 const api = new Api({
-
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-13',
   headers: {
     authorization: '0dcb61a0-e155-4c98-8825-cdfb2e75e352',
     'Content-Type': 'application/json'
   }
 });
- function rendererCard (item) {
+//-----------Функция, возвращающая карточку
+function rendererCard(item) {
   const card = new Card(item, '#card', () => {
     popupWithImage.open(card.name, card.link);
   }, (cardElement) => {
@@ -48,12 +48,8 @@ const api = new Api({
     }
   });
   return card;
-  
-  
 }
-
 let cardList = {};
-
 //-------Получение карточек с сервера
 api.getInitialCards((cardArray) => {
   //-------Создание экземпляра класса секция
@@ -66,7 +62,6 @@ api.getInitialCards((cardArray) => {
     }
   }, ".card-grid");
   cardList.renderItems();
-
 });
 //----------Конфигурационный объект для валидации
 const configObj = {
@@ -82,7 +77,6 @@ const popupWithConfirmation = new PopupWithConfirmation(".confirm-popup", (cardE
     cardElement._cardElement.remove();
     cardElement._cardElement = null;
   })
-
 });
 popupWithConfirmation.setEventListeners();
 //--------Создание экземпляра класса информации о пользователе
@@ -91,7 +85,6 @@ const userInfo = new UserInfo(".profile__name", ".profile__vocation", ".profile_
 api.getUserInfo((data) => {
   userInfo.setUserInfo(data);
   userInfo.setAvatarLink(data.avatar);
-
 });
 //--------Создание экземпляра класса валидации формы изменения данных
 const editFormValidator = new FormValidator(configObj, popupContainer);
@@ -110,12 +103,10 @@ const popupWithEditForm = new PopupWithForm(".edit-popup", (inputsData) => {
   api.updateUserInfo(inputsData, (data) => {
     userInfo.setUserInfo(data);
   }, (isLoading) => {
-    if (isLoading) {
-      popupApplyButton.innerHTML = 'Сохранение...';
-    } else {
-      popupApplyButton.innerHTML = 'Сохранить';
-      popupWithEditForm.close();
-    }
+    isLoading ? popupApplyButton.innerHTML = 'Сохранение...' : (
+      popupApplyButton.innerHTML = 'Сохранить',
+      popupWithEditForm.close()
+    );
   });
 });
 popupWithEditForm.setEventListeners();
@@ -125,12 +116,9 @@ const popupWithAddForm = new PopupWithForm(".add-popup", (inputsData) => {
     const card = rendererCard(item);
     cardList.addItem(card.getCard());
   }, (isLoading) => {
-    if (isLoading) {
-      addPopupApplyButton.innerHTML = "Создание...";
-    } else {
-      addPopupApplyButton.innerHTML = "Создать";
-      popupWithAddForm.close();
-    }
+    isLoading ? addPopupApplyButton.innerHTML = "Создание..." : (
+      addPopupApplyButton.innerHTML = "Создать",
+      popupWithAddForm.close())
   })
 });
 popupWithAddForm.setEventListeners();
@@ -139,14 +127,11 @@ const popupWithUpdateForm = new PopupWithForm(".update-popup", (inputsData) => {
 
   api.updateUserAvatar(inputsData.link, (data) => {
     userInfo.setAvatarLink(data.avatar);
-
   }, (isLoading) => {
-    if (isLoading) {
-      updatePopupApplyButton.innerHTML = 'Сохранение...';
-    } else {
-      updatePopupApplyButton.innerHTML = 'Сохранить';
-      popupWithUpdateForm.close();
-    }
+    isLoading ? updatePopupApplyButton.innerHTML = 'Сохранение...' : (
+      updatePopupApplyButton.innerHTML = 'Сохранить',
+      popupWithUpdateForm.close()
+    );
   });
 
 });

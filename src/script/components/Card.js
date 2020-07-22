@@ -7,8 +7,7 @@ export class Card {
     this._handleDeliteClick = handleDeliteClick;
     this.likeCount = data.likes.length;
     this.id = data._id;
-    this._handleLikeClick = handleLikeClick;
-    
+    this._handleLikeClick = handleLikeClick;    
   }
   _getCardElement() {//функция получения шаблона карточки
     const cardTemplate = document.querySelector(this._templateElement).content;
@@ -21,8 +20,7 @@ export class Card {
     this._cardElement.querySelector(".card-grid__like").addEventListener('click', () => this._handleLikeClick(this, this._cardElement.querySelector('.card-grid__like').classList.contains('card-grid__like_active')))//прерывание на клик по кнопке лайк
   }
   getCard() { //функция добавления карточки
-    this._cardElement = this._getCardElement();
-    
+    this._cardElement = this._getCardElement();    
     this._cardElement.querySelector(".card-grid__place").textContent = this.name;
     const cardGridImage = this._cardElement.querySelector(".card-grid__image");
     cardGridImage.src = this.link;

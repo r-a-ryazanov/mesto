@@ -4,7 +4,6 @@ export class Section{
     this._renderItem = renderer;
     this._container = document.querySelector(containerSelector);
   }
-
   renderItems(){//функция добавления карточек
     this._cardElementDataList.forEach(item => {
       this._renderItem(item);
