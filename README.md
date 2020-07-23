@@ -16,4 +16,4 @@
 ***
 При выполнении работы использовался компонентный подход к вэб-разработке - БЭМ.
 ***
-<https://r-a-ryazanov.github.io/mesto/docs/index.html>
+<https://r-a-ryazanov.github.io/mesto/>
